@@ -41,29 +41,41 @@ var DharmaGenerator = yeoman.generators.Base.extend({
                 default: 'om_'
             },
             {
-    			message: 'Database host',
-    			name: 'dbHost',
-    		},
-            {
+                name: 'dbName',
     			message: 'Database name',
-    			name: 'dbName',
+                default: 'om_content'
     		},
             {
+                name: 'dbUser',
     			message: 'Database user',
-    			name: 'dbUser',
+                default: 'root'
     		},
             {
+                name: 'dbPass',
     			message: 'Database password',
-    			name: 'dbPass',
+                default: 'alpine'
     		},
             {
-    			message: 'Language',
-    			name: 'wpLang',
-    		}
+                name: 'dbHost',
+                message: 'Database host',
+                default: 'localhost'
+            },
+            {
+                name: 'wpLang',
+    			message: 'Want support for multiple languages?',
+                default: ''
+
+    		},
+            {
+                name: 'wpDirectory',
+                message: 'What folder should WordPress live in?',
+                default: 'wp'
+            },
         ];
 
         this.prompt(prompts, function (props) {
             this.siteName = props.siteName;
+            this.themeSlug = props.themeSlug;
 
             done();
         }.bind(this));
@@ -73,21 +85,23 @@ var DharmaGenerator = yeoman.generators.Base.extend({
         this.mkdir('content');
         this.mkdir('content/themes');
         // get this folder name from a user prompt
-        this.mkdir('content/themes/my-theme');
-        this.mkdir('content/themes/my-theme/assets');
-        this.mkdir('content/themes/my-theme/source');
+        this.mkdir('content/themes/' + this.themeSlug);
+        this.mkdir('content/mu-plugins');
+        this.mkdir('shared/content/uploads');
+    },
 
-        // project dependencies
+    projectfiles: function () {
         this.template('_package.json', 'package.json');
         this.template('_gruntfile.js', 'gruntfile.js');
         this.template('_bower.json', 'bower.json');
     },
 
-    projectfiles: function () {
+    dotfiles: function () {
         // dotfiles
         this.copy('editorconfig', '.editorconfig');
-        this.copy('jshintrc', '.jshintrc');
-        this.copy('bowerrc', '.bowerrc');
+        this.copy('gitignore', '.gitignore');
+        this.template('_gitmodules', '.gitmodules');
+        this.copy('htaccess', '.htaccess');
     }
 });
 
