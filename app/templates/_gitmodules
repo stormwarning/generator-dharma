@@ -1,0 +1,3 @@
+[submodule "<%= _.slugify(wpDirectory) %>"]
+	path = <%= _.slugify(wpDirectory) %>
+	url = git://github.com/WordPress/WordPress.git
