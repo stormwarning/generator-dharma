@@ -1,0 +1,16 @@
+/shared
+/local-config.php
+/sql-dump-*.sql
+/db-sync
+/content/upgrade/
+.DS_Store
+.sass-cache
+/content/themes/<%= _.slugify(themeSlug) %>/assets
+/content/themes/<%= _.slugify(themeSlug) %>/node_modules
+/content/themes/<%= _.slugify(themeSlug) %>/source/vendor
+/content/backupwordpress*
+*.mp4
+*.webm
+*.ogv
+/content/plugins
+wp-config.php
