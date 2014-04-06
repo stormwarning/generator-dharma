@@ -58,7 +58,18 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 			{
 				name: 'dbHost',
 				message: 'Database host',
-				default: 'localhost'
+				type: 'list',
+				choices: [
+					{
+						name: 'Environment variable',
+						value: '$_ENV{DATABASE_SERVER}'
+					},
+					{
+						name: 'Local host',
+						value: '"localhost"'
+					}
+				],
+				default: '$_ENV{DATABASE_SERVER}'
 			},
 			// {
 			//     name: 'wpLang',
