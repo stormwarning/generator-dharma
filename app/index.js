@@ -77,11 +77,11 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 			this.siteName = props.siteName;
 			this.themeSlug = props.themeSlug;
 			this.wpDirectory = props.wpDirectory;
-            this.dbPrefix = props.dbPrefix;
-            this.dbName = props.dbName;
-            this.dbUser = props.dbUser;
-            this.dbPass = props.dbPass;
-            this.dbHost = props.dbHost;
+			this.dbPrefix = props.dbPrefix;
+			this.dbName = props.dbName;
+			this.dbUser = props.dbUser;
+			this.dbPass = props.dbPass;
+			this.dbHost = props.dbHost;
 
 			done();
 		}.bind(this));
@@ -107,6 +107,7 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 
 	dotfiles: function () {
 		// dotfiles
+		this.template('_bowerrc', '.bowerrc');
 		this.copy('editorconfig', '.editorconfig');
 		this.template('_gitignore', '.gitignore');
 		this.template('_gitmodules', '.gitmodules');

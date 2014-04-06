@@ -1,0 +1,3 @@
+{
+    "directory": "content/themes/<%= _.slugify(themeSlug) %>/source/vendor"
+}
