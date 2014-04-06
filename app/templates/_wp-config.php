@@ -7,10 +7,10 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 	include( dirname( __FILE__ ) . '/local-config.php' );
 } else {
 	define( 'WP_LOCAL_DEV', false );
-	define( 'DB_NAME', '<%= _.slugify(dbName) %>' );
-	define( 'DB_USER', '<%= _.slugify(dbUser) %>' );
-	define( 'DB_PASSWORD', '<%= _.slugify(dbPass) %>' );
-	define( 'DB_HOST', '<%= _.slugify(dbHost) %>' ); // Probably 'localhost'
+	define( 'DB_NAME', '<%= dbName %>' );
+	define( 'DB_USER', '<%= dbUser %>' );
+	define( 'DB_PASSWORD', '<%= dbPass %>' );
+	define( 'DB_HOST', <%= dbHost %> ); // Probably 'localhost'
 }
 
 // ========================
@@ -41,7 +41,7 @@ define('NONCE_SALT',       'put your unique phrase here');
 // Table prefix
 // Change this if you have multiple installs in the same database
 // ==============================================================
-$table_prefix  = '<%= _.slugify(dbPrefix) %>';
+$table_prefix  = '<%= dbPrefix %>';
 
 // ================================
 // Language
