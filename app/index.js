@@ -120,6 +120,7 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 		// dotfiles
 		this.template('_bowerrc', '.bowerrc');
 		this.copy('editorconfig', '.editorconfig');
+		this.copy('jshintrc', '.jshintrc');
 		this.template('_gitignore', '.gitignore');
 		this.template('_gitmodules', '.gitmodules');
 		this.copy('htaccess', '.htaccess');
