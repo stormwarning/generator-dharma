@@ -1,8 +1,9 @@
 'use strict';
-var util = require('util');
-var path = require('path');
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
+var util = require('util'),
+	path = require('path'),
+	yeoman = require('yeoman-generator'),
+	chalk = require('chalk'),
+	git = require('simple-git')();
 
 
 var DharmaGenerator = yeoman.generators.Base.extend({
@@ -126,6 +127,39 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 		this.copy('htaccess', '.htaccess');
 		this.copy('humans.txt', 'humans.txt');
 		this.copy('robots.txt', 'robots.txt');
+	},
+	
+	gitsome: function () {
+		var done = this.async(),
+			me = this;
+			
+		me.log(chalk.magenta('Initialising Git repo...'));
+		
+		git.init(function (err) {
+			if (err) {
+				me.log(chalk.red(err));
+			}
+			
+			done();
+		});
+		git.submoduleAdd('git://github.com/WordPress/WordPress.git', this._.slugify(this.wpDirectory), function (err) {
+			if (err) {
+				me.log(chalk.red(err));
+			}
+			
+			git._baseDir = me._.slugify(me.wpDirectory);
+			git.checkoutLatestTag(function (err) {
+				if (err) {
+					me.log(chalk.red(err));
+				}
+				
+				done();
+			});
+		});
+		git.add('./*');
+		git.commit('Initialised project. ॐ');
+		
+		this.log(chalk.magenta('...done! Remember to add an origin and push.'));
 	}
 });
 
