@@ -1,16 +1,43 @@
-/shared
-/local-config.php
-/sql-dump-*.sql
-/db-sync
-/content/upgrade/
+#
+# OS files
+#
+
 .DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Icon?
+
+# Thumbnails
+._*
+ehthumbs.db
+Thumbs.db
+
+# External disks
+.Spotlight-V100
+.Trashes
+
+
+#
+# Build process files
+#
+
 .sass-cache
+node_modules
+source/vendor
+
+# Theme
 /content/themes/<%= _.slugify(themeSlug) %>/assets
 /content/themes/<%= _.slugify(themeSlug) %>/node_modules
 /content/themes/<%= _.slugify(themeSlug) %>/source/vendor
-/content/backupwordpress*
-*.mp4
-*.webm
-*.ogv
+
+
+#
+# WordPress dev files
+#
+
+/shared
+/local-config.php
+/content/upgrade/
 /content/plugins
 wp-config.php
