@@ -123,42 +123,48 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 		this.copy('editorconfig', '.editorconfig');
 		this.copy('jshintrc', '.jshintrc');
 		this.template('_gitignore', '.gitignore');
+		this.copy('gitattributes', '.gitattributes');
 		this.template('_gitmodules', '.gitmodules');
 		this.copy('htaccess', '.htaccess');
 		this.copy('humans.txt', 'humans.txt');
 		this.copy('robots.txt', 'robots.txt');
 	},
-	
+
+	stylefiles: function() {
+		this.template('_style.scss', 'content/themes/' + this.themeSlug + '/source/styles/style.scss');
+		this.copy('variables.scss', 'content/themes/' + this.themeSlug + '/source/styles/_variables.scss');
+	},
+
 	gitsome: function () {
 		var done = this.async(),
 			me = this;
-			
+
 		me.log(chalk.magenta('Initialising Git repo...'));
-		
+
 		git.init(function (err) {
 			if (err) {
 				me.log(chalk.red(err));
 			}
-			
+
 			done();
 		});
 		git.submoduleAdd('git://github.com/WordPress/WordPress.git', this._.slugify(this.wpDirectory), function (err) {
 			if (err) {
 				me.log(chalk.red(err));
 			}
-			
+
 			git._baseDir = me._.slugify(me.wpDirectory);
 			git.checkoutLatestTag(function (err) {
 				if (err) {
 					me.log(chalk.red(err));
 				}
-				
+
 				done();
 			});
 		});
 		git.add('./*');
 		git.commit('Initialised project. ॐ');
-		
+
 		this.log(chalk.magenta('...done! Remember to add an origin and push.'));
 	}
 });

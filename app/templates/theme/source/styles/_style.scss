@@ -1,0 +1,52 @@
+/**
+ * Theme Name:  <%= siteName %>
+ * Theme URI:
+ * Description:
+ * Author:
+ * Author URI:
+ * Version:     0.1.0
+ * Tags:
+ */
+
+/**
+ * Generic utility styles etc.
+ */
+@import "mixins";
+@import "variables";
+
+
+/**
+ * Base styles; unclassed HTML elements etc.
+ */
+@import "partials/base.global";
+@import "partials/base.typography";
+@import "partials/base.layout";
+
+
+/**
+ * Objects, abstractions, and constructs
+ */
+@import "partials/object.button";
+@import "partials/object.nav";
+@import "partials/object.revealer";
+@import "partials/object.hero";
+@import "partials/object.sprite";
+
+
+/**
+ * Page-specific styles
+ */
+
+
+
+/**
+ * WordPress default classes etc.
+ */
+
+
+/**
+ * Style trumps; helper and vendor styles
+ */
+@import "partials/trump.modernizr";
+@import "partials/trump.print";
+@import "partials/trump.debug";

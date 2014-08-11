@@ -1,0 +1,167 @@
+/*------------------------------------*\
+		#GLOBAL
+\*------------------------------------*/
+/**
+ * Set the global `box-sizing` state to `border-box`.
+ *
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+ * paulirish.com/2012/box-sizing-border-box-ftw
+ */
+html {
+	box-sizing: border-box;
+}
+
+* {
+
+	&,
+	&:before,
+	&:after {
+		box-sizing: border-box;
+	}
+}
+
+
+/**
+ * High-, page-level styling.
+ *
+ * 1. Set the default `font-size` and `line-height` for the entire project,
+ *    sourced from our default variables. The `font-size` is calculated to exist
+ *    in ems, the `line-height` is calculated to exist unitlessly.
+ * 2. Force scrollbars to always be visible to prevent awkward ‘jumps’ when
+ *    navigating between pages that do/do not have enough content to produce
+ *    scrollbars naturally.
+ * 3. Ensure the page always fills at least the entire height of the viewport.
+ * 4. Prevent certain mobile browsers from automatically zooming fonts.
+ * 5. Fonts on OSX will look more consistent with other systems that do not
+ *    render text using sub-pixel anti-aliasing.
+ */
+html {
+	min-height: 100%; /* [3] */
+	overflow-y: scroll; /* [2] */
+	font-size: ($base-font-size / 16px) * 1em; /* [1] */
+	-webkit-font-smoothing: antialiased; /* [5] */
+	-moz-osx-font-smoothing: grayscale; /* [5] */
+	line-height: $base-line-height / $base-font-size; /* [1] */
+	color: $color-text;
+	-webkit-text-size-adjust: 100%; /* [4] */
+	-ms-text-size-adjust: 100%; /* [4] */
+	background-color: $color-background;
+}
+
+
+/**
+ * 1. Fluid images for responsive purposes.
+ * 2. Offset `alt` text from surrounding copy.
+ * 3. Setting `vertical-align` removes the whitespace that appears under `img`
+ *    elements when they are dropped into a page as-is. Safer alternative to
+ *    using `display: block;`.
+ */
+img {
+	height: auto;
+	max-width: 100%; /* [1] */
+	font-style: italic; /* [2] */
+	vertical-align: middle; /* [3] */
+
+	&.alignright {
+		float: right;
+		margin-bottom: $base-line-height;
+		margin-left: 30px;
+	}
+
+	&.alignleft {
+		float: left;
+		margin-right: 30px;
+		margin-bottom: $base-line-height;
+	}
+}
+
+p > img {
+	margin: 0 auto;
+}
+
+.google-map img { max-width: none; }
+
+
+figure {
+	display: inline-block;
+	margin: 0;
+	margin-bottom: $base-line-height;
+	line-height: 0;
+
+	&.alignright {
+		float: right;
+		margin-bottom: $base-line-height;
+		margin-left: 30px;
+	}
+
+	&.alignleft {
+		float: left;
+		margin-right: 30px;
+		margin-bottom: $base-line-height;
+	}
+
+	> figcaption {
+		font-family: $font-heading;
+		line-height: 2.2;
+		border-bottom: 1px dotted rgba($grey-ultradark, 0.4);
+
+		> :last-child { margin-bottom: 0; }
+	}
+}
+
+
+/**
+ * Layout system
+ *
+ * @link http://csswizardry.com/csswizardry-grids/
+ */
+%layout {
+	padding: 0;
+	margin: 0;
+	margin-left: -$layout-gutter;
+	list-style: none;
+}
+
+/**
+ * 1. Cause columns to stack side-by-side.
+ * 2. Space columns apart.
+ * 3. Align columns to the tops of each other.
+ * 4. Full-width unless told to behave otherwise.
+ * 5. Required to combine fluid widths and fixed gutters.
+ */
+%layout-item {
+	display: inline-block; /* [1] */
+	width: 100%; /* [4] */
+	padding-left: $layout-gutter; /* [2] */
+	vertical-align: top; /* [3] */
+}
+
+
+/**
+ * Micro clearfix.
+
+ * Extend the clearfix class with Sass to avoid the `.cf` class appearing over
+ * and over in your markup.
+ *
+ * @link css-101.org/articles/clearfix/latest-new-clearfix-so-far.php
+ */
+.cf,
+%cf {
+	&:after {
+		display: table;
+		clear: both;
+		content: "";
+	}
+}
+
+
+/**
+ * Vertical centering.
+ */
+%vertical-center {
+	position: relative;
+	top: 50%;
+	margin-bottom: 0;
+	transform: translateY(-50%);
+	backface-visibility: hidden;
+}

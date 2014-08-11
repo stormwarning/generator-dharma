@@ -1,0 +1,63 @@
+/*------------------------------------*\
+    #VARIABLES
+\*------------------------------------*/
+/**
+ * Basic custom style variables.
+ */
+$site-width:        960px;
+$base-radius:       5px;
+$sprite-size:       600px 400px;
+
+// Transition settings
+$timing:            ease-in;
+
+
+/**
+ * Colours
+ */
+$black:             #111;
+$grey-dark:         #666;
+$grey:              #bcc2c9;
+$grey-light:        #e9ebed;
+$white:             #fff;
+
+$color-link:        $white;
+$color-shadow:      $black;
+$color-selection:   $grey-light;
+
+$color-overhaul:    #71838e;
+$color-facebook:    #3b5998;
+$color-twitter:     #00aced;
+$color-google:      #434647;
+
+
+/**
+ * Typography
+ */
+// Font stacks
+$font-body:         Merriweather, serif;
+$font-heading:      Raleway, sans-serif;
+
+// Typographic scale
+$base-font-size:    16px!default;
+$base-line-height:  24px!default;
+
+$giga-size:         96px!default;
+$mega-size:         72px!default;
+$kilo-size:         48px!default;
+
+$h1-size:           36px!default; // .alpha
+$h2-size:           30px!default; // .beta
+$h3-size:           24px!default; // .gamma
+$h4-size:           20px!default; // .delta
+$h5-size:           16px!default; // .epsilon
+$h6-size:           14px!default; // .zeta
+
+$milli-size:        12px!default;
+$micro-size:        10px!default;
+
+
+/**
+ * Grid settings
+ */
+$layout-gutter:     24px;
