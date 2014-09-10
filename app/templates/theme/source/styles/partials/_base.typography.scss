@@ -1,0 +1,270 @@
+/*------------------------------------*\
+    #TYPOGRAPHY
+\*------------------------------------*/
+/**
+ * Global font improvements
+ */
+
+body {
+  font-family: $font-body;
+  font-weight: 300;
+}
+
+input,
+button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+
+
+
+/**
+ * Text-selection styles
+ */
+::-moz-selection {
+  color: $white;
+  text-shadow: none;
+  background-color: rgba($color-selection, 0.6);
+}
+
+::selection {
+  color: $white;
+  text-shadow: none;
+  background-color: rgba($color-selection, 0.6);
+}
+
+
+
+
+/**
+ * Form input placeholder styles
+ */
+::-webkit-input-placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color: inherit;
+  opacity: 0.6;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+  color: inherit;
+  opacity: 0.6;
+}
+
+:-ms-input-placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
+
+
+
+
+/**
+ * Base heading styles
+ */
+%hN {
+  margin-top: 0;
+  margin-bottom: $base-line-height;
+  font-family: $font-heading;
+  font-weight: 200;
+  line-height: 1.26;
+  letter-spacing: 0.06ex;
+  text-rendering: optimizeLegibility;
+  text-transform: uppercase;
+
+  a {
+    color: inherit;
+  }
+}
+
+h1, .alpha {
+  @extend %hN;
+
+  font-size: $h2-size;
+
+  @include bp(medium) {
+    font-size: $h1-size;
+  }
+}
+
+h2, .beta {
+  @extend %hN;
+
+  font-family: $font-body;
+  font-size: $h2-size;
+  font-weight: 500;
+}
+
+h3, .gamma {
+  @extend %hN;
+
+  font-size: $h3-size;
+  color: $red;
+}
+
+h4, .delta {
+  @extend %hN;
+
+  font-size: $h4-size;
+}
+
+h5, .epsilon {
+  @extend %hN;
+
+  font-size: $h5-size;
+}
+
+h6, .zeta {
+  @extend %hN;
+
+  font-family: $font-body;
+  font-size: $h6-size;
+  font-weight: 500;
+}
+
+
+
+
+/**
+ * Base paragraph styles
+ */
+p,
+address {
+  margin-top: 0;
+  margin-bottom: $base-line-height;
+}
+
+
+
+
+/**
+ * Links
+ */
+a {
+  color: $color-link;
+  text-decoration: none;
+  transition: all 0.15s $timing;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: lighten($color-link, 10);
+    outline: none;
+  }
+}
+
+
+
+
+/**
+ * Quotations
+ */
+$open-quote:  \201C !global;
+$close-quote: \201D !global;
+
+blockquote {
+  quotes: "#{$open-quote}" "#{$close-quote}";
+  margin: 0;
+  margin-bottom: $base-line-height;
+  font-family: $font-heading;
+  line-height: 1.5;
+  text-indent: -0.41em;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  p {
+
+    &:before {
+      content: "#{$open-quote}";
+      content: open-quote;
+    }
+
+    &:after {
+      content: "";
+      content: no-close-quote;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+
+      &:after {
+        content: "#{$close-quote}";
+        content: close-quote;
+      }
+    }
+  }
+
+  cite {
+    display: block;
+    font-family: $font-body;
+    text-indent: 0;
+
+    &:before {
+      content: "\2014";
+    }
+  }
+}
+
+
+
+
+/**
+ * Definition lists
+ */
+dl {
+  margin-top: 0;
+  margin-bottom: $base-line-height;
+
+  > dt {
+    font-weight: bold;
+  }
+
+  > dd {
+    margin-bottom: $base-line-height / 2;
+    margin-left: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+
+
+/**
+ * Other lists
+ */
+ol,
+ul {
+  padding-left: $layout-gutter * 2;
+  margin-top: 0;
+  margin-bottom: $base-line-height;
+
+  > li {
+
+    > ol, ul { margin-bottom: 0; }
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+
+
+/**
+ * Base table styles
+ */
+table {
+  margin-top: 0;
+  margin-bottom: $base-line-height;
+}
