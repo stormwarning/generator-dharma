@@ -67,12 +67,12 @@ img {
   &.alignright {
     float: right;
     margin-bottom: $base-line-height;
-    margin-left: 30px;
+    margin-left: $layout-gutter;
   }
 
   &.alignleft {
     float: left;
-    margin-right: 30px;
+    margin-right: $layout-gutter;
     margin-bottom: $base-line-height;
   }
 }
@@ -94,12 +94,12 @@ figure {
   &.alignright {
     float: right;
     margin-bottom: $base-line-height;
-    margin-left: 30px;
+    margin-left: $layout-gutter;
   }
 
   &.alignleft {
     float: left;
-    margin-right: 30px;
+    margin-right: $layout-gutter;
     margin-bottom: $base-line-height;
   }
 
@@ -148,7 +148,6 @@ figure {
  *
  * @link css-101.org/articles/clearfix/latest-new-clearfix-so-far.php
  */
-.cf,
 %cf {
   &:after {
     display: table;

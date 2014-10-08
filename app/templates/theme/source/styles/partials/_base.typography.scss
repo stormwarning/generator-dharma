@@ -95,16 +95,13 @@ h1, .alpha {
 h2, .beta {
   @extend %hN;
 
-  font-family: $font-body;
   font-size: $h2-size;
-  font-weight: 500;
 }
 
 h3, .gamma {
   @extend %hN;
 
   font-size: $h3-size;
-  color: $red;
 }
 
 h4, .delta {
@@ -122,9 +119,7 @@ h5, .epsilon {
 h6, .zeta {
   @extend %hN;
 
-  font-family: $font-body;
   font-size: $h6-size;
-  font-weight: 500;
 }
 
 
@@ -267,4 +262,9 @@ ul {
 table {
   margin-top: 0;
   margin-bottom: $base-line-height;
+}
+
+th,
+td {
+  vertical-align: top;
 }

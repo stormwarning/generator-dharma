@@ -13,6 +13,7 @@
  */
 @import "mixins";
 @import "variables";
+@import "../vendor/normalize-scss/_normalize";
 
 
 /**
@@ -20,7 +21,6 @@
  */
 @import "partials/base.global";
 @import "partials/base.typography";
-@import "partials/base.layout";
 
 
 /**
@@ -36,7 +36,9 @@
 /**
  * Page-specific styles
  */
-
+@import "partials/layout.front";
+@import "partials/layout.page";
+@import "partials/layout.404";
 
 
 /**
@@ -47,6 +49,6 @@
 /**
  * Style trumps; helper and vendor styles
  */
-@import "partials/trump.modernizr";
-@import "partials/trump.print";
-@import "partials/trump.debug";
+// @import "partials/trump.modernizr";
+// @import "partials/trump.print";
+// @import "partials/trump.debug";
