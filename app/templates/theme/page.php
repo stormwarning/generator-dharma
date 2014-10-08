@@ -10,23 +10,32 @@
 
   get_header();
 
+  $featured_image = om_get_featured_image( 'full' );
+
 ?>
-
-<?php while ( have_posts() ) : the_post(); ?>
-
-  <?php get_template_part( 'content', 'page' ); ?>
+<main class="main" id="main" role="main">
 
   <?php
 
-    // If comments are open or we have at least one comment, load up the comment template
-    if ( comments_open() || '0' != get_comments_number() ) {
+    while ( have_posts() ) : the_post();
 
-      comments_template();
+  ?>
+  <article class="main-content">
+    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
-    }
+    <?php the_content(); ?>
+  </article>
+  <?php
+
+    endwhile; // end of the loop.
 
   ?>
 
-<?php endwhile; // end of the loop. ?>
+</main>
 
-<?php get_footer(); ?>
+
+<?php
+
+  get_footer();
+
+?>

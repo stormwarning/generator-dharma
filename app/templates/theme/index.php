@@ -10,23 +10,33 @@
  * @link http://codex.wordpress.org/Template_Hierarchy
  */
 
-get_header(); ?>
+  get_header();
 
-<?php if ( have_posts() ) : ?>
+?>
 
-  <?php // Start the Loop ?>
-  <?php while ( have_posts() ) : the_post(); ?>
+<main class="main" id="main" role="main">
 
-    <?php get_template_part( 'content', get_post_format() ); ?>
+  <?php
 
-  <?php endwhile; ?>
+    while ( have_posts() ) : the_post();
 
-  <?php _s_paging_nav(); ?>
+  ?>
+  <article class="main-content">
+    <?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
-<?php else : ?>
+    <?php the_content(); ?>
+  </article>
+  <?php
 
-  <?php get_template_part( 'content', 'none' ); ?>
+    endwhile; // end of the loop.
 
-<?php endif; ?>
+  ?>
 
-<?php get_footer(); ?>
+</main>
+
+
+<?php
+
+  get_footer();
+
+?>

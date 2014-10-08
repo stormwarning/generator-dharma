@@ -1,9 +1,11 @@
 <?php
 /**
+ *
  * THEME HEADER
+ *
  */
 ?><!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,15 +17,16 @@
     <link rel="icon" sizes="196x196" href="/chrome-touch-icon-196x196.png">
 
     <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-precomposed.png">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-tile-144x144.png">
+    <meta name="msapplication-TileColor" content="#2661aa">
 
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/assets/styles/style.css">
-
-    <!-- Web Fonts -->
+    <meta name="application-name" content="">
 
 
     <?php wp_head(); ?>
@@ -33,18 +36,19 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <a class="skip-link screen-reader-text" href="#main"><?php _e( 'Skip to content', '_om' ); ?></a>
+    <a class="skip-link screen-reader-text" href="#main">Skip to content</a>
+
 
     <header class="site-header" id="top">
-        <hgroup>
-            <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
-        </hgroup>
+      <a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+        <?php bloginfo( 'name' ); ?>
+      </a>
 
-        <nav class="main-navigation" role="navigation">
-			<button class="menu-toggle" type="button"><?php _e( 'Menu', '_om' ); ?></button>
-			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
-		</nav>
+      <nav class="main-navigation" role="navigation">
+        <?php
+
+          wp_nav_menu( array( 'theme_location' => 'primary' ) );
+
+        ?>
+      </nav>
     </header>
-
-    <main class="main" id="main" role="main">

@@ -7,23 +7,19 @@
 
 ?>
 
-<?php while ( have_posts() ) : the_post(); ?>
+<main class="main" id="main" role="main">
 
-  <?php get_template_part( 'content', 'single' ); ?>
+  <article class="main-content" id="post-<?php the_ID(); ?>">
+    <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
-  <?php _s_post_nav(); ?>
+    <?php the_content(); ?>
+  </article>
 
-  <?php
-  
-    // If comments are open or we have at least one comment, load up the comment template
-    if ( comments_open() || '0' != get_comments_number() ) {
+</main>
 
-      comments_template();
 
-    }
+<?php
 
-  ?>
+  get_footer();
 
-<?php endwhile; // end of the loop. ?>
-
-<?php get_footer(); ?>
+?>
