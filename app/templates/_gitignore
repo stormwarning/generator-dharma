@@ -36,8 +36,10 @@ source/vendor
 # WordPress dev files
 #
 
-/shared
-/local-config.php
-/content/upgrade/
-/content/plugins
+debug.log
+shared
+upgrade
+plugins
+uploads
 wp-config.php
+local-config.php
