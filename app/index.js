@@ -131,8 +131,8 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 	},
 
 	stylefiles: function() {
-		this.template('_style.scss', 'content/themes/' + this.themeSlug + '/source/styles/style.scss');
-		this.copy('variables.scss', 'content/themes/' + this.themeSlug + '/source/styles/_variables.scss');
+		this.template('templates/theme/source/styles/_style.scss', 'content/themes/' + this.themeSlug + '/source/styles/style.scss');
+		this.copy('templates/theme/source/styles/variables.scss', 'content/themes/' + this.themeSlug + '/source/styles/_variables.scss');
 	},
 
 	gitsome: function () {
