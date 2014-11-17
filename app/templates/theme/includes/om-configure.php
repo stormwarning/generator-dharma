@@ -56,6 +56,11 @@ if ( ! function_exists( 'om_startup' ) ) {
 
     // prevent file modifications
     define( 'DISALLOW_FILE_EDIT', true );
+    
+    // remove all comment functionality
+    add_action( 'init', 'om_remove_comment_support', 100 );
+    add_action( 'wp_before_admin_bar_render', 'om_remove_comments_admin_bar' );
+    add_action( 'admin_menu', 'om_remove_comment_menu' );
 
   }
 
@@ -386,5 +391,48 @@ function om_dont_update_theme( $r, $url ) {
   $r['body']['themes'] = serialize( $themes );
 
   return $r;
+
+}
+
+
+
+
+/**
+ * Remove all comment functionality
+ */
+// remove comment support from post types
+if ( ! function_exists( 'om_remove_comment_support' ) ) {
+
+  function om_remove_comment_support() {
+
+    remove_post_type_support( 'post', 'comments' );
+    remove_post_type_support( 'page', 'comments' );
+
+  }
+}
+
+
+// remove comments option from admin bar
+if ( ! function_exists( 'om_remove_comments_admin_bar' ) ) {
+
+  function om_remove_comments_admin_bar() {
+
+    global $wp_admin_bar;
+
+    $wp_admin_bar->remove_menu( 'comments' );
+
+  }
+
+}
+
+
+// remove comments option from dashboard menu
+if ( ! function_exists( 'om_remove_comment_menu' ) ) {
+
+  function om_remove_comment_menu() {
+
+    remove_menu_page( 'edit-comments.php' );
+
+  }
 
 }
