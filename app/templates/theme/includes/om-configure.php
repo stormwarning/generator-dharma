@@ -56,11 +56,14 @@ if ( ! function_exists( 'om_startup' ) ) {
 
     // prevent file modifications
     define( 'DISALLOW_FILE_EDIT', true );
-    
+
     // remove all comment functionality
     add_action( 'init', 'om_remove_comment_support', 100 );
     add_action( 'wp_before_admin_bar_render', 'om_remove_comments_admin_bar' );
     add_action( 'admin_menu', 'om_remove_comment_menu' );
+
+    // keep Yoast SEO metabox in last place
+    add_action( 'wpseo_metabox_prio', 'om_yoast_seo_metabox_priority' );
 
   }
 
@@ -432,6 +435,22 @@ if ( ! function_exists( 'om_remove_comment_menu' ) ) {
   function om_remove_comment_menu() {
 
     remove_menu_page( 'edit-comments.php' );
+
+  }
+
+}
+
+
+
+
+/**
+ * Keep Yoast SEO metabox in last place
+ */
+if ( ! function_exists( 'om_yoast_seo_metabox_priority' ) ) {
+
+  function om_yoast_seo_metabox_priority() {
+
+    return 'low';
 
   }
 
