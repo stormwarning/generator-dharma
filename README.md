@@ -1,6 +1,6 @@
-# ॐ
+# реР
 
-`generator-dharma` : A WordPress site generator for Yeoman by Overhaul Media.
+`generator-dharma` : A [WordPress](http://wordpress.org/) site generator for [Yeoman](http://yeoman.io) by [Overhaul Media](http://overhaulmedia.com/).
 
 > _Dharma_ signifies behaviors that are considered to be in accord with order that makes life and universe possible, and includes duties, rights, laws, conduct, virtues and "right way of living".
 
@@ -9,46 +9,43 @@ The Dharma generator builds a base WordPress project following best practices an
 
 [![Build Status](https://secure.travis-ci.org/stormwarning/generator-dharma.png?branch=master)](https://travis-ci.org/stormwarning/generator-dharma)
 
-> [Yeoman](http://yeoman.io) generator
 
+## How do I get started?
 
-## Getting Started
+Install `generator-dharma` globally from npm and initiate:
 
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```
-$ npm install -g yo
-```
-
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-dharma from npm, run:
-
-```
+```shell
 $ npm install -g generator-dharma
-```
-
-Finally, initiate the generator:
-
-```
 $ yo dharma
 ```
 
-### Getting To Know Yeoman
+## No, really, how do I get started?
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
+Okay, first you need to be in the right environment. On a Mac? Here we go:
 
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
+1. First, install [Homebrew](http://brew.sh/)
+
+```shell
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+2. Next, install [node package manager](https://npmjs.org/)
+
+```shell
+$ brew install npm
+```
+
+3. Install [Yeoman](http://yeoman.io/) and his friend, [Bower](http://bower.io/)
+
+```shell
+$ npm install -g yo bower
+```
+
+4. Install [Gulp](http://gulpjs.com/)
+
+```shell
+$ npm install -g gulp
+```
 
 
 ## License
