@@ -1,4 +1,4 @@
-# реР
+# ॐ
 
 `generator-dharma` : A [WordPress](http://wordpress.org/) site generator for [Yeoman](http://yeoman.io) by [Overhaul Media](http://overhaulmedia.com/).
 
