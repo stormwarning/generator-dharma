@@ -1,7 +1,7 @@
 {
   "name": "generator-dharma",
   "version": "0.2.0",
-  "description": "Yeoman generator",
+  "description": "The Dharma generator builds a base WordPress project following best practices and methods for WordPress and front-end development.",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "stormwarning/generator-dharma",
@@ -20,7 +20,8 @@
     "app"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "wordpress"
   ],
   "dependencies": {
     "yeoman-generator": "~0.16.0",
