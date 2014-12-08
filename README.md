@@ -7,9 +7,9 @@
 The Dharma generator builds a base WordPress project following best practices and methods for WordPress and front-end development.
 
 
-![GitHub Release](https://img.shields.io/github/release/stormwarning/generator-dharma.svg?style=flat)
+[![GitHub Release](https://img.shields.io/github/release/stormwarning/generator-dharma.svg?style=flat)](/stormwarning/generator-dharma/releases)
 [![Build Status](https://img.shields.io/travis/stormwarning/generator-dharma.svg?style=flat)](https://travis-ci.org/stormwarning/generator-dharma)
-![GitHub Issues](https://img.shields.io/github/issues/stormwarning/generator-dharma.svg?style=flat)
+[![GitHub Issues](https://img.shields.io/github/issues/stormwarning/generator-dharma.svg?style=flat)](/stormwarning/generator-dharma/issues)
 
 ## How do I get started?
 
