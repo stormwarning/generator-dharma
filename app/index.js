@@ -114,7 +114,7 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 
   projectfiles: function () {
     this.template('_package.json', 'package.json');
-    this.template('_gruntfile.js', 'gruntfile.js');
+    this.template('_gulpfile.js', 'gulpfile.js');
     this.template('_bower.json', 'bower.json');
   },
 
