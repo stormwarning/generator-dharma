@@ -32,6 +32,13 @@ function om_register_required_plugins() {
       'slug'             => 'wpremote',
       'required'         => true,
       'force_activation' => true
+    ),
+
+    array(
+      'name'             => 'RICG Responsive Images',
+      'slug'             => 'ricg-responsive-images',
+      'required'         => true,
+      'force_activation' => true
     )
 
   );
