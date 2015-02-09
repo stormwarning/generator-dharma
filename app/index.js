@@ -155,6 +155,7 @@ var DharmaGenerator = yeoman.generators.Base.extend({
   stylefiles: function() {
     this.template('theme/source/styles/_style.scss', 'content/themes/' + this.themeSlug + '/source/styles/style.scss');
     this.copy('theme/source/styles/variables.scss', 'content/themes/' + this.themeSlug + '/source/styles/_variables.scss');
+    this.copy('theme/source/styles/mixins.scss', 'content/themes/' + this.themeSlug + '/source/styles/_mixins.scss');
     this.copy('theme/source/styles/partials/_base.global.scss', 'content/themes/' + this.themeSlug + '/source/styles/partials/_base.global.scss');
     this.copy('theme/source/styles/partials/_base.typography.scss', 'content/themes/' + this.themeSlug + '/source/styles/partials/_base.typography.scss');
   },
