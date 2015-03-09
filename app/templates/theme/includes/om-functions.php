@@ -16,6 +16,28 @@ function om_get_featured_image( $size = 'large' ) {
 
 
 /**
+ * Request API data
+ *
+ * @param  $url    The API request URL
+ * @return $result The JSON response from the request
+ */
+function om_curl_data( $url ) {
+
+  $ch = curl_init();
+  curl_setopt( $ch, CURLOPT_URL, $url );
+  curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+  curl_setopt( $ch, CURLOPT_TIMEOUT, 20 );
+  $result = curl_exec( $ch );
+  curl_close( $ch);
+
+  return $result;
+
+}
+
+
+
+
+/**
  * Breadcrumb navigation
  *
  * Not all pages will have a `the_title` value; these can be defined here.
