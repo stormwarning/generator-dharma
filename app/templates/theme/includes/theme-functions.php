@@ -34,16 +34,12 @@ if ( ! function_exists( 'theme_scripts_and_styles' ) ) {
       wp_register_style( 'om-ie-only', get_template_directory_uri() . '/assets/style/ie.css', array(), '' );
 
       // load scripts in the footer
-      wp_deregister_script( 'jquery' );
-      wp_register_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js', false, '', true );
-
       wp_register_script( 'theme-plugins', get_template_directory_uri() . '/assets/scripts/plugins.js', array( 'jquery' ), '', true );
       wp_register_script( 'theme-js', get_template_directory_uri() . '/assets/scripts/main.js', array( 'jquery' ), '', true );
 
 
       // enqueue styles and scripts
       wp_enqueue_style( 'theme-css' );
-      wp_enqueue_script( 'jquery' );
       wp_enqueue_script( 'theme-plugins' );
       wp_enqueue_script( 'theme-js' );
 

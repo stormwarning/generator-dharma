@@ -54,6 +54,9 @@ if ( ! function_exists( 'om_startup' ) ) {
     add_theme_support( 'automatic-feed-links' );
     add_post_type_support( 'page', 'excerpt' );
 
+    // add custom editor styles
+    add_editor_style( get_template_directory_uri() . '/assets/styles/editor-style.css' );
+
     // prevent file modifications
     define( 'DISALLOW_FILE_EDIT', true );
 
@@ -191,9 +194,7 @@ if ( ! function_exists( 'om_scripts_and_styles' ) ) {
     if ( ! is_admin() ) {
 
       // modernizr (without media query polyfill)
-      wp_register_script( 'om-modernizr', get_template_directory_uri() . '/assets/scripts/modernizr.js', array(), '2.6.2', false );
-
-
+      wp_register_script( 'om-modernizr', get_template_directory_uri() . '/assets/scripts/modernizr.js', array(), '2.7.2', false );
 
       // comment reply script for threaded comments
       if ( get_option( 'thread_comments' ) ) {
@@ -202,22 +203,21 @@ if ( ! function_exists( 'om_scripts_and_styles' ) ) {
 
       }
 
+      // load Google CDN jQuery
+      wp_deregister_script( 'jquery' );
+      wp_register_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js', false, '', true );
+
       // load scripts in the footer
       global $is_IE;
 
       if ( $is_IE ) {
 
-         wp_register_script ( 'html5shiv', "http://html5shiv.googlecode.com/svn/trunk/html5.js" , false, true );
+        wp_register_script ( 'html5shiv', "http://html5shiv.googlecode.com/svn/trunk/html5.js" , false, true );
 
       }
 
       // enqueue styles and scripts
       wp_enqueue_script( 'om-modernizr' );
-      /*
-      I recommend using a plugin to call jQuery
-      using the google cdn. That way it stays cached
-      and your site will load faster.
-      */
       wp_enqueue_script( 'jquery' );
       wp_enqueue_script( 'html5shiv' );
 
