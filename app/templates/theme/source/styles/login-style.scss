@@ -1,36 +1,43 @@
+/*------------------------------------*\
+    #ADMIN.LOGIN-STYLE
+\*------------------------------------*/
 /**
- * Custom login screen styles.
- */
-
-/**
- * Generic utility styles etc.
+ * Include a few base styles.
  */
 @import "mixins";
 @import "variables";
-
-
-/**
- * Base styles; unclassed HTML elements etc.
- */
-// @import "partials/base.global";
-// @import "partials/base.typography";
-
-
-/**
- * Objects, abstractions, and constructs
- */
 @import "partials/object.button";
 
 
-/**
- * Page-specific styles
- */
-@import "partials/layout.login";
 
 
 /**
- * Style trumps; helper and vendor styles
+ * WordPress login page styles.
  */
-// @import "partials/trump.modernizr";
-// @import "partials/trump.print";
-// @import "partials/trump.debug";
+.login {
+
+  h1 {
+
+    a {
+      width: 84px;
+      height: 84px;
+      background-image: url("../images/admin-logo.png");
+      background-image: none, url("../images/admin-logo.svg");
+    }
+  }
+}
+
+
+
+
+.wp-core-ui {
+
+  .button-primary {
+
+    &:hover,
+    &:focus,
+    &:active {
+
+    }
+  }
+}
