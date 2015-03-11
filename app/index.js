@@ -30,7 +30,7 @@ var DharmaGenerator = yeoman.generators.Base.extend({
     var prompts = [
       {
         name: 'siteName',
-        message: 'What is the name of the site you\'re building?'
+        message: 'What is the name of the site you’re building?'
       },
       {
         name: 'themeSlug',
@@ -113,13 +113,14 @@ var DharmaGenerator = yeoman.generators.Base.extend({
   },
 
   projectfiles: function () {
+    this.log(chalk.blue('Creating project & build config files...'));
+
     this.template('_package.json', 'package.json');
     this.template('_gulpfile.js', 'gulpfile.js');
     this.template('_bower.json', 'bower.json');
   },
 
   dotfiles: function () {
-    // dotfiles
     this.template('_bowerrc', '.bowerrc');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
@@ -130,9 +131,13 @@ var DharmaGenerator = yeoman.generators.Base.extend({
     this.copy('htaccess', '.htaccess');
     this.copy('humans.txt', 'humans.txt');
     this.copy('robots.txt', 'robots.txt');
+
+    this.log(chalk.blue('...done!'));
   },
 
   themefiles: function() {
+    this.log(chalk.blue('Creating WordPress theme & function files...'));
+
     this.template('theme/_style.css', 'content/themes/' + this.themeSlug + 'style.css');
     this.copy('theme/404.php', 'content/themes/' + this.themeSlug + '404.php');
     this.copy('theme/archive.php', 'content/themes/' + this.themeSlug + 'archive.php');
@@ -150,21 +155,27 @@ var DharmaGenerator = yeoman.generators.Base.extend({
     this.copy('theme/includes/om-functions.php', 'content/themes/' + this.themeSlug + 'includes/om-functions.php');
     this.copy('theme/includes/theme-functions.php', 'content/themes/' + this.themeSlug + 'includes/theme-functions.php');
     this.copy('theme/includes/theme-require-plugins.php', 'content/themes/' + this.themeSlug + 'includes/theme-require-plugins.php');
+
+    this.log(chalk.blue('...done!'));
   },
 
   stylefiles: function() {
+    this.log(chalk.blue('Creating initial SASS files...'));
+
     this.template('theme/source/styles/_style.scss', 'content/themes/' + this.themeSlug + '/source/styles/style.scss');
     this.copy('theme/source/styles/variables.scss', 'content/themes/' + this.themeSlug + '/source/styles/_variables.scss');
     this.copy('theme/source/styles/mixins.scss', 'content/themes/' + this.themeSlug + '/source/styles/_mixins.scss');
     this.copy('theme/source/styles/partials/_base.global.scss', 'content/themes/' + this.themeSlug + '/source/styles/partials/_base.global.scss');
     this.copy('theme/source/styles/partials/_base.typography.scss', 'content/themes/' + this.themeSlug + '/source/styles/partials/_base.typography.scss');
+
+    this.log(chalk.blue('...done!'));
   },
 
   gitsome: function () {
     var done = this.async(),
         me = this;
 
-    me.log(chalk.magenta('Initialising Git repo...'));
+    me.log(chalk.magenta('Initialising git repo...'));
 
     git.init(function (err) {
       if (err) {
