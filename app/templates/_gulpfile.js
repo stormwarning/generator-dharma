@@ -11,21 +11,35 @@ var reload = browserSync.reload;
 
 
 // FILE PATHS =========================================================
+var theme = 'content/themes/<%= _.slugify(siteName) %>';
 var source = {
 
-  styles : 'content/themes/<%= _.slugify(siteName) %>/source/styles/**/*.scss',
-  scripts : 'content/themes/<%= _.slugify(siteName) %>/source/scripts/*.js',
-  images : 'content/themes/<%= _.slugify(siteName) %>/source/images/*.{png,jpg,gif}',
-  svgs : 'content/themes/<%= _.slugify(siteName) %>/source/images/*.svg'
+  styles : theme + '/source/styles/**/*.scss',
+  scripts : theme + '/source/scripts/*.js',
+  images : theme + '/source/images/*.{png,jpg,gif}',
+  svgs : theme + '/source/images/*.svg',
+  plugins : theme + '/source/vendor'
 
 };
 var assets = {
 
-  styles : 'content/themes/<%= _.slugify(siteName) %>/assets/styles',
-  scripts : 'content/themes/<%= _.slugify(siteName) %>/assets/scripts',
-  images : 'content/themes/<%= _.slugify(siteName) %>/assets/images'
+  styles : theme + '/assets/styles',
+  scripts : theme + '/assets/scripts',
+  images : theme + '/assets/images',
+  vendor : theme + '/assets/vendor'
 
 };
+var plugins = [
+
+  source.plugins + '/fastclick/lib/fastclick.js'
+
+];
+var vendor = [
+
+  // source.plugins + '/idangerous-swiper/dist/js/swiper.jquery.min.js',
+  // source.plugins + '/idangerous-swiper/dist/css/swiper.min.css',
+
+];
 
 
 // AUTOPREFIXER CONFIG ================================================
@@ -45,7 +59,7 @@ var AUTOPREFIXER_BROWSERS = [
 // COMPILE STYLESHEETS ================================================
 gulp.task('styles', function () {
 
-  return gulp.src('source/styles/*.scss')
+  return gulp.src(theme + '/source/styles/*.scss')
     .pipe($.changed('styles', {
       extension: '.scss'
     }))
@@ -69,9 +83,29 @@ gulp.task('scripts', function () {
   return gulp.src(source.scripts)
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe(concat('scripts.js'))
+    .pipe(concat('main.js'))
     .pipe($.uglify())
     .pipe(gulp.dest(assets.scripts));
+
+});
+
+gulp.task('plugins', function () {
+
+  return gulp.src(plugins)
+    .pipe($.concat('plugins.js'))
+    .pipe($.uglify())
+    .pipe(gulp.dest(assets.scripts))
+    .pipe($.size({title: 'plugins'}));
+
+});
+
+
+// COPY ONE-OFF VENDOR SCRIPTS ========================================
+gulp.task('vendor', function () {
+
+  return gulp.src(vendor)
+    .pipe(gulp.dest(assets.vendor))
+    .pipe($.size({title: 'vendor'}));
 
 });
 
@@ -117,7 +151,7 @@ gulp.task('serve', ['styles'], function () {
     server: './'
   });
 
-  gulp.watch(['**/*.html'], reload);
+  gulp.watch([theme + '/**/*.php'], reload);
   gulp.watch([source.styles], ['styles', reload]);
   gulp.watch([source.scripts], ['scripts']);
   gulp.watch([source.images], ['images', reload]);
