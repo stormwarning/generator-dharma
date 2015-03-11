@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    #TRUMP.WORDPRESS
+\*------------------------------------*/
+/**
+ * Styles for default WordPress classes.
+ */
+
+
+/**
+ * Visually hide text but preserve for screen readers.
+ */
+.screen-reader-text {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+
+
+
+/**
+ * Account for the admin bar with a fixed header.
+ */
+.admin-bar {
+
+  .site-header {
+    top: 32px;
+  }
+}
