@@ -2,14 +2,51 @@
 /**
  * If there's a Featured Image on a post, get it
  *
- * @return featured image url
+ * @param  $size  Requested image size
+ * @return $image Featured image URL
  */
 function om_get_featured_image( $size = 'large' ) {
-  if ( has_post_thumbnail() ) {
-    $img = wp_get_attachment_image_src( get_post_thumbnail_id(), $size );
 
-    return $img[0];
+  if ( has_post_thumbnail() ) {
+
+    // get the featured image of the post.
+    $img = wp_get_attachment_image_src( get_post_thumbnail_id(), $size );
+    $image = $img[0];
+
+  } else {
+
+    // check for images attached to the post.
+    $attachments = get_children( array(
+      'post_type' => 'attachment',
+      'order' => 'ASC',
+      'orderby' => 'menu_order',
+      'post_mime_type' => 'image',
+      'post_parent' => $post->ID
+    ) );
+
+    $attachments = array_keys($attachments);
+    $attached_image = wp_get_attachment_image_src( $attachments[0], $size );
+    $image = $attached_image[0];
+
+    if ( $attached_image == '' ) {
+
+      // check the post content for an `<img>` element and get the `src` value.
+      $content = get_the_content( $post );
+      preg_match( '/<img.+src=[\'"](?P<src>.+)[\'"].*>/i', $content, $img_element );
+
+      $image = $img_element['src'];
+
+    }
+
   }
+
+  // if $image has been set to something, return it.
+  if ( $image !== null ) {
+
+    return $image;
+
+  }
+
 }
 
 
