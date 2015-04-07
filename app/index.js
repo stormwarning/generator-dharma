@@ -124,6 +124,7 @@ var DharmaGenerator = yeoman.generators.Base.extend({
     this.template('_bowerrc', '.bowerrc');
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
+    this.copy('phpcs.xml', 'phpcs.xml');
     this.copy('scss-lint.yml', '.scss-lint.yml');
     this.template('_gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
