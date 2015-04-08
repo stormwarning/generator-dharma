@@ -59,7 +59,7 @@ var AUTOPREFIXER_BROWSERS = [
 // COMPILE STYLESHEETS ================================================
 gulp.task('styles', function () {
 
-  return gulp.src(theme + '/source/styles/*.scss')
+  return gulp.src(source.styles)
     .pipe($.changed('styles', {
       extension: '.scss'
     }))
