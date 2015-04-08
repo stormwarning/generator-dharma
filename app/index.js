@@ -140,23 +140,23 @@ var DharmaGenerator = yeoman.generators.Base.extend({
   themefiles: function() {
     this.log(chalk.blue('Creating WordPress theme & function files...'));
 
-    this.template('theme/_style.css', 'content/themes/' + this.themeSlug + 'style.css');
-    this.copy('theme/404.php', 'content/themes/' + this.themeSlug + '404.php');
-    this.copy('theme/archive.php', 'content/themes/' + this.themeSlug + 'archive.php');
-    this.copy('theme/footer.php', 'content/themes/' + this.themeSlug + 'footer.php');
-    this.copy('theme/front-page.php', 'content/themes/' + this.themeSlug + 'front-page.php');
-    this.copy('theme/functions.php', 'content/themes/' + this.themeSlug + 'functions.php');
-    this.copy('theme/header.php', 'content/themes/' + this.themeSlug + 'header.php');
-    this.copy('theme/index.php', 'content/themes/' + this.themeSlug + 'index.php');
-    this.copy('theme/page.php', 'content/themes/' + this.themeSlug + 'page.php');
-    this.copy('theme/search.php', 'content/themes/' + this.themeSlug + 'search.php');
-    this.copy('theme/single.php', 'content/themes/' + this.themeSlug + 'single.php');
-    this.copy('theme/includes/class-tgm-plugin-activation.php', 'content/themes/' + this.themeSlug + 'includes/class-tgm-plugin-activation.php');
-    this.copy('theme/includes/om-configure.php', 'content/themes/' + this.themeSlug + 'includes/om-configure.php');
-    this.copy('theme/includes/om-dashboard.php', 'content/themes/' + this.themeSlug + 'includes/om-dashboard.php');
-    this.copy('theme/includes/om-functions.php', 'content/themes/' + this.themeSlug + 'includes/om-functions.php');
-    this.copy('theme/includes/theme-functions.php', 'content/themes/' + this.themeSlug + 'includes/theme-functions.php');
-    this.copy('theme/includes/theme-require-plugins.php', 'content/themes/' + this.themeSlug + 'includes/theme-require-plugins.php');
+    this.template('theme/_style.css', 'content/themes/' + this.themeSlug + '/style.css');
+    this.copy('theme/404.php', 'content/themes/' + this.themeSlug + '/404.php');
+    this.copy('theme/archive.php', 'content/themes/' + this.themeSlug + '/archive.php');
+    this.copy('theme/footer.php', 'content/themes/' + this.themeSlug + '/footer.php');
+    this.copy('theme/front-page.php', 'content/themes/' + this.themeSlug + '/front-page.php');
+    this.copy('theme/functions.php', 'content/themes/' + this.themeSlug + '/functions.php');
+    this.copy('theme/header.php', 'content/themes/' + this.themeSlug + '/header.php');
+    this.copy('theme/index.php', 'content/themes/' + this.themeSlug + '/index.php');
+    this.copy('theme/page.php', 'content/themes/' + this.themeSlug + '/page.php');
+    this.copy('theme/search.php', 'content/themes/' + this.themeSlug + '/search.php');
+    this.copy('theme/single.php', 'content/themes/' + this.themeSlug + '/single.php');
+    this.copy('theme/includes/class-tgm-plugin-activation.php', 'content/themes/' + this.themeSlug + '/includes/class-tgm-plugin-activation.php');
+    this.copy('theme/includes/om-configure.php', 'content/themes/' + this.themeSlug + '/includes/om-configure.php');
+    this.copy('theme/includes/om-dashboard.php', 'content/themes/' + this.themeSlug + '/includes/om-dashboard.php');
+    this.copy('theme/includes/om-functions.php', 'content/themes/' + this.themeSlug + '/includes/om-functions.php');
+    this.copy('theme/includes/theme-functions.php', 'content/themes/' + this.themeSlug + '/includes/theme-functions.php');
+    this.copy('theme/includes/theme-require-plugins.php', 'content/themes/' + this.themeSlug + '/includes/theme-require-plugins.php');
 
     this.log(chalk.blue('...done!'));
   },
