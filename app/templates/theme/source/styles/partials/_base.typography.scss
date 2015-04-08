@@ -86,7 +86,7 @@ h1, .alpha {
 
   font-size: $h2-size;
 
-  @include bp(medium) {
+  @include bp(mobile-land) {
     font-size: $h1-size;
   }
 }
