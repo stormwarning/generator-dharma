@@ -6,12 +6,12 @@ var $ = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
-var pagespeed = require('psi');
+var pagespeed = require('psi');  
 var reload = browserSync.reload;
 
 
 // FILE PATHS =========================================================
-var theme = 'content/themes/<%= _.slugify(siteName) %>';
+var theme = 'content/themes/<%= themeSlug %>';
 var source = {
 
   styles : theme + '/source/styles/**/*.scss',
