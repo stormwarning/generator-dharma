@@ -41,7 +41,7 @@
  * A simple mixin to quickly generate whole media queries from the aliases and
  * conditions defined in `_variables.scss`.
  */
-@mixin media-query($mq) {
+@mixin bp($mq) {
 
   $breakpoint-found: false;
 
