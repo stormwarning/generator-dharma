@@ -106,7 +106,7 @@ figure {
   > figcaption {
     font-family: $font-heading;
     line-height: 2.2;
-    border-bottom: 1px dotted rgba($grey-ultradark, 0.4);
+    border-bottom: 1px dotted rgba($grey-dark, 0.4);
 
     > :last-child { margin-bottom: 0; }
   }
