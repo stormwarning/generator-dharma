@@ -30,12 +30,13 @@ var DharmaGenerator = yeoman.generators.Base.extend({
     var prompts = [
       {
         name: 'siteName',
-        message: 'What is the name of the site you’re building?'
+        message: 'What is the name of the site you’re building?',
+        default: 'My Site'
       },
       {
         name: 'themeSlug',
         message: 'What is the folder name?',
-        default: 'some-theme'
+        default: 'my-theme'
       },
       {
         name: 'dbPrefix',
