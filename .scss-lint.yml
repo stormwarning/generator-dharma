@@ -1,11 +1,16 @@
 linters:
+  BangFormat:
+    enabled: true
+    space_before_bang: true
+    space_after_bang: false
+
   BorderZero:
     enabled: true
 
-  CapitalizationInSelector:
+  ColorKeyword:
     enabled: true
 
-  ColorKeyword:
+  ColorVariable:
     enabled: true
 
   Comment:
@@ -46,11 +51,20 @@ linters:
   HexValidation:
     enabled: true
 
-  IdWithExtraneousSelector:
+  IdSelector:
     enabled: true
+
+  ImportantRule:
+    enabled: true
+
+  ImportPath:
+    enabled: true
+    leading_underscore: false
+    filename_extension: false
 
   Indentation:
     enabled: true
+    allow_non_nested_indentation: false
     character: space # or 'tab'
     width: 2
 
@@ -64,169 +78,44 @@ linters:
 
   NameFormat:
     enabled: true
+    allow_leading_underscore: true
     convention: hyphenated_lowercase # or 'BEM', or a regex pattern
+
+  NestingDepth:
+    enabled: true
+    max_depth: 3
 
   PlaceholderInExtend:
     enabled: true
 
+  PropertyCount:
+    enabled: false
+    include_nested: false
+    max_properties: 10
+
   PropertySortOrder:
     enabled: true
-    order:
-      - position
-      - top
-      - right
-      - bottom
-      - left
-      - z-index
-      - display
-      - float
-      - width
-      - height
-      - max-width
-      - max-height
-      - min-width
-      - min-height
-      - padding
-      - padding-top
-      - padding-right
-      - padding-bottom
-      - padding-left
-      - margin
-      - margin-top
-      - margin-right
-      - margin-bottom
-      - margin-left
-      - margin-collapse
-      - margin-top-collapse
-      - margin-right-collapse
-      - margin-bottom-collapse
-      - margin-left-collapse
-      - overflow
-      - overflow-x
-      - overflow-y
-      - clip
-      - clear
-      - font
-      - font-family
-      - font-size
-      - font-smoothing
-      - osx-font-smoothing
-      - font-style
-      - font-weight
-      - hyphens
-      - src
-      - line-height
-      - letter-spacing
-      - word-spacing
-      - color
-      - text-align
-      - text-decoration
-      - text-indent
-      - text-overflow
-      - text-rendering
-      - text-size-adjust
-      - text-shadow
-      - text-transform
-      - word-break
-      - word-wrap
-      - white-space
-      - vertical-align
-      - list-style
-      - list-style-type
-      - list-style-position
-      - list-style-image
-      - pointer-events
-      - cursor
-      - background
-      - background-attachment
-      - background-color
-      - background-image
-      - background-position
-      - background-repeat
-      - background-size
-      - border
-      - border-collapse
-      - border-top
-      - border-right
-      - border-bottom
-      - border-left
-      - border-color
-      - border-image
-      - border-top-color
-      - border-right-color
-      - border-bottom-color
-      - border-left-color
-      - border-spacing
-      - border-style
-      - border-top-style
-      - border-right-style
-      - border-bottom-style
-      - border-left-style
-      - border-width
-      - border-top-width
-      - border-right-width
-      - border-bottom-width
-      - border-left-width
-      - border-radius
-      - border-top-right-radius
-      - border-bottom-right-radius
-      - border-bottom-left-radius
-      - border-top-left-radius
-      - border-radius-topright
-      - border-radius-bottomright
-      - border-radius-bottomleft
-      - border-radius-topleft
-      - content
-      - quotes
-      - outline
-      - outline-offset
-      - opacity
-      - filter
-      - visibility
-      - size
-      - zoom
-      - transform
-      - box-align
-      - box-flex
-      - box-orient
-      - box-pack
-      - box-shadow
-      - box-sizing
-      - table-layout
-      - animation
-      - animation-delay
-      - animation-duration
-      - animation-iteration-count
-      - animation-name
-      - animation-play-state
-      - animation-timing-function
-      - animation-fill-mode
-      - transition
-      - transition-delay
-      - transition-duration
-      - transition-property
-      - transition-timing-function
-      - background-clip
-      - backface-visibility
-      - resize
-      - appearance
-      - user-select
-      - interpolation-mode
-      - direction
-      - marks
-      - page
-      - set-link-source
-      - unicode-bidi
-      - speak
     ignore_unspecified: false
+    order: recess
+    separate_groups: false
 
   PropertySpelling:
     enabled: true
     extra_properties: []
 
+  QualifyingElement:
+    enabled: true
+    allow_element_with_attribute: false
+    allow_element_with_class: false
+    allow_element_with_id: false
+
   SelectorDepth:
     enabled: true
     max_depth: 3
+
+  SelectorFormat:
+    enabled: true
+    convention: hyphenated_lowercase # or 'BEM', or 'hyphenated_BEM', or 'snake_case', or 'camel_case', or a regex pattern
 
   Shorthand:
     enabled: true
@@ -236,7 +125,7 @@ linters:
     allow_single_line_rule_sets: true
 
   SingleLinePerSelector:
-    enabled: false
+    enabled: true
 
   SpaceAfterComma:
     enabled: true
@@ -250,6 +139,7 @@ linters:
 
   SpaceBeforeBrace:
     enabled: true
+    style: space # or 'new_line'
     allow_single_line_padding: false
 
   SpaceBetweenParens:
@@ -260,10 +150,16 @@ linters:
     enabled: true
     style: double_quotes # or single_quotes
 
-  TrailingSemicolonAfterPropertyValue:
+  TrailingSemicolon:
     enabled: true
 
+  TrailingZero:
+    enabled: false
+
   UnnecessaryMantissa:
+    enabled: true
+
+  UnnecessaryParentReference:
     enabled: true
 
   UrlFormat:
@@ -271,6 +167,16 @@ linters:
 
   UrlQuotes:
     enabled: true
+
+  VariableForProperty:
+    enabled: false
+    properties: []
+
+  VendorPrefix:
+    enabled: true
+    identifier_list: base
+    additional_identifiers: []
+    excluded_identifiers: []
 
   ZeroUnit:
     enabled: true
