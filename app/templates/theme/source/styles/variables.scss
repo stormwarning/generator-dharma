@@ -2,32 +2,9 @@
     #VARIABLES
 \*------------------------------------*/
 /**
- * Basic custom style variables.
- */
-$site-width:        960px;
-$base-radius:       5px;
-$sprite-size:       600px 400px;
-$breakpoints:   (	
-                    mobile-port: 479px,
-                    mobile-land: 767px,
-                    tablet-port: 959px,
-                    desktop-xsmall: 1100px,
-                    desktop-small: 1300px,
-                    desktop-medium: 1500px,
-                    desktop-large: 1800px,
-                    desktop-xlarge: 2100px,
-                    desktop-xxlarge: 2400px,
-                    desktop-xxxlarge: 2800px
-                );
-
-// Transition settings
-$timing:            ease-in;
-
-
-/**
  * Colours
  */
-$black:             #111;
+$black:             #222;
 $grey-dark:         #666;
 $grey:              #bcc2c9;
 $grey-light:        #e9ebed;
@@ -72,6 +49,21 @@ $micro-size:        10px!default;
 
 
 /**
- * Grid settings
+ * Basic custom style variables.
  */
-$layout-gutter:     24px;
+$site-width:        960px;
+$base-radius:       5px;
+$sprite-size:       600px 400px;
+
+// Transition settings
+$timing:            ease-in-out;
+
+// Grid settings
+$layout-gutter:     20px;
+
+// Breakpoints
+$breakpoints: (
+  "medium"          "screen and (min-width: 30em)",
+  "large"           "screen and (min-width: 60em)",
+  "retina"          "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"
+) !default;
