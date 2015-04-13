@@ -10,36 +10,29 @@ function om_register_required_plugins() {
       'name'             => 'Advanced Custom Fields',
       'slug'             => 'advanced-custom-fields',
       'required'         => true,
-      'force_activation' => true
+      'force_activation' => true,
     ),
 
     array(
       'name'             => 'WordPress SEO by Yoast',
       'slug'             => 'wordpress-seo',
       'required'         => true,
-      'force_activation' => true
-    ),
-
-    array(
-      'name'             => 'WP Smush.it',
-      'slug'             => 'wp-smushit',
-      'required'         => true,
-      'force_activation' => true
+      'force_activation' => true,
     ),
 
     array(
       'name'             => 'WP Remote',
       'slug'             => 'wpremote',
       'required'         => true,
-      'force_activation' => true
+      'force_activation' => true,
     ),
 
     array(
       'name'             => 'RICG Responsive Images',
       'slug'             => 'ricg-responsive-images',
       'required'         => true,
-      'force_activation' => true
-    )
+      'force_activation' => true,
+    ),
 
   );
 
@@ -126,7 +119,7 @@ function om_register_required_plugins() {
       'complete' => __( 'All plugins installed and activated successfully. %s', $theme_text_domain ),
 
       // Determines admin notice type - can only be 'updated' or 'error'
-      'nag_type' => 'updated'
+      'nag_type' => 'updated',
     )
 
   );
