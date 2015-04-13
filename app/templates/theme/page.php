@@ -17,7 +17,9 @@
 
   <?php
 
-    while ( have_posts() ) : the_post();
+    while ( have_posts() ) :
+
+      the_post();
 
   ?>
   <article class="main-content">
@@ -27,7 +29,7 @@
   </article>
   <?php
 
-    endwhile; // end of the loop.
+    endwhile; // close the loop.
 
   ?>
 

@@ -3,36 +3,63 @@
  * The template for displaying search results pages.
  */
 
-  get_header(); 
+  get_header();
 
 ?>
 
-<?php if ( have_posts() ) : ?>
+<main class="main" id="main" role="main">
 
+<?php
+
+  if ( have_posts() ) :
+
+?>
   <header class="page-header">
     <h1 class="page-title"><?php printf( __( 'Search Results for: %s', '_om' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
   </header>
 
-  <?php // Start the Loop ?>
-  <?php while ( have_posts() ) : the_post(); ?>
+  <?php
 
-    <?php
-    /**
-     * Run the loop for the search to output the results.
-     * If you want to overload this in a child theme then include a file
-     * called content-search.php and that will be used instead.
-     */
-        get_template_part( 'content', 'search' );
-    ?>
+    while ( have_posts() ) :
 
-  <?php endwhile; ?>
+      the_post();
 
-  <?php _s_paging_nav(); ?>
+  ?>
+  <article class="search-result">
+    <?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
-<?php else : ?>
+    <?php the_excerpt(); ?>
+  </article>
+  <?php
 
-  <?php get_template_part( 'content', 'none' ); ?>
+    endwhile; // close the loop.
 
-<?php endif; ?>
+  ?>
 
-<?php get_footer(); ?>
+  <?php
+
+    // put pagination function here
+
+  ?>
+
+<?php
+
+  else :
+
+?>
+  <article class="no-results">
+    <h1 class="entry-title">Sorry, no results found</h1>
+  </article>
+<?php
+
+  endif;
+
+?>
+
+</main>
+
+<?php
+
+  get_footer();
+
+?>

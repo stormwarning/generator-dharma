@@ -17,10 +17,7 @@ require_once( get_template_directory() . '/includes/om-functions.php' );
  * Custom Theme functions
  */
 // Require plugins
-require_once( get_template_directory() . '/includes/class-tgm-plugin-activation.php' );
 require_once( get_template_directory() . '/includes/theme-require-plugins.php' );
-
-add_action( 'tgmpa_register', 'om_register_required_plugins' );
 
 
 // Custom functions & theme options

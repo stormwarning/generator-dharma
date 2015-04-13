@@ -1,13 +1,11 @@
+/* jshint node: true */
 'use strict';
 
 // DEPENDENCIES =======================================================
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var del = require('del');
-var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
-var concat = require('gulp-concat');
-var pagespeed = require('psi');  
+var pagespeed = require('psi');
 var reload = browserSync.reload;
 
 
@@ -60,7 +58,7 @@ var AUTOPREFIXER_BROWSERS = [
 // COMPILE STYLESHEETS ================================================
 gulp.task('styles', function () {
 
-  return gulp.src(source.styles)
+  return gulp.src(theme + '/source/styles/*.scss')
     .pipe($.changed('styles', {
       extension: '.scss'
     }))
@@ -84,7 +82,7 @@ gulp.task('scripts', function () {
   return gulp.src(source.scripts)
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe(concat('main.js'))
+    .pipe($.concat('main.js'))
     .pipe($.uglify())
     .pipe(gulp.dest(assets.scripts));
 

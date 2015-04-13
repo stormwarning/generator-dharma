@@ -37,7 +37,6 @@ if ( ! function_exists( 'theme_scripts_and_styles' ) ) {
       wp_register_script( 'theme-plugins', get_template_directory_uri() . '/assets/scripts/plugins.js', array( 'jquery' ), '', true );
       wp_register_script( 'theme-js', get_template_directory_uri() . '/assets/scripts/main.js', array( 'jquery' ), '', true );
 
-
       // enqueue styles and scripts
       wp_enqueue_style( 'theme-css' );
       wp_enqueue_script( 'theme-plugins' );

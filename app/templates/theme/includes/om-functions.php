@@ -21,10 +21,10 @@ function om_get_featured_image( $size = 'large' ) {
       'order' => 'ASC',
       'orderby' => 'menu_order',
       'post_mime_type' => 'image',
-      'post_parent' => $post->ID
+      'post_parent' => $post->ID,
     ) );
 
-    $attachments = array_keys($attachments);
+    $attachments = array_keys( $attachments );
     $attached_image = wp_get_attachment_image_src( $attachments[0], $size );
     $image = $attached_image[0];
 
@@ -65,7 +65,7 @@ function om_curl_data( $url ) {
   curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
   curl_setopt( $ch, CURLOPT_TIMEOUT, 20 );
   $result = curl_exec( $ch );
-  curl_close( $ch);
+  curl_close( $ch );
 
   return $result;
 
@@ -102,41 +102,42 @@ function om_the_breadcrumbs() {
   $text['category'] = '%s Archive'; // [2]
   $text['tax']      = '%s'; // [3]
   $text['search']   = 'Results for “%s”'; // [4]
-  $text['tag']      = 'Posts Tagged "%s"'; // [5]
+  $text['tag']      = 'Posts Tagged “%s”'; // [5]
   $text['author']   = 'Articles Posted by %s'; // [6]
   $text['404']      = 'Error 404'; // [7]
 
   $show_current = true; // [8]
   $show_on_home = false; // [9]
   $separator    = ''; // [10]
-  $pre_current  = '<li class="breadcrumb-current current"><strong>'; // [11]
-  $post_current = '</strong></li>'; // [12]
-
+  $pre_current  = '<li class="breadcrumb-current current" itemprop="itemListElement" itemscope
+      itemtype="http://schema.org/ListItem"><strong itemprop="item"><span itemprop="name">'; // [11]
+  $post_current = '</span></strong></li>'; // [12]
 
   global $post;
 
   $home_url = get_bloginfo( 'url' ) . '/';
-  $pre_link = '<li typeof="v:Breadcrumb">';
+  $pre_link = '<li itemprop="itemListElement" itemscope
+      itemtype="http://schema.org/ListItem">';
   $post_link = '</li>';
-  $link_attr = ' rel="v:url" property="v:title"';
-  $link = $pre_link . '<a' . $link_attr . ' href="%1$s">%2$s</a>' . $post_link;
-
+  $link_attr = ' itemprop="item"';
+  $link = $pre_link . '<a' . $link_attr . ' href="%1$s"><span itemprop="name">%2$s</span></a>' . $post_link;
 
   if ( ( is_front_page() && is_home() ) || is_front_page() ) {
 
     if ( $show_on_home ) {
 
-      echo '<ol class="nav breadcrumb"><a href="' . $home_url . '">' . $text['home'] . '</a></ol>';
+      echo '<ol class="nav breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope
+      itemtype="http://schema.org/ListItem"><a itemprop="item" href="' . $home_url . '" rel="home">' . $text['home'] . '</a></li></ol>';
 
     }
 
   } else {
 
-    echo '<ol class="nav breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">';
+    echo '<ol class="nav breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">';
 
     if ( is_home() ) {
 
-      if ( $show_current == 1 ) {
+      if ( 1 == $show_current ) {
 
         echo $pre_current . $text['blog'] . $post_current;
 
@@ -146,15 +147,15 @@ function om_the_breadcrumbs() {
 
     if ( is_category() ) {
 
-      $blog = get_post( get_option('page_for_posts') );
+      $blog = get_post( get_option( 'page_for_posts' ) );
 
-      echo $pre_link . '<a' . $link_attr . 'href="' . get_permalink( $blog ) . '">' . apply_filters( 'the_title', $blog->post_title ) . '</a>' . $post_link . $separator;
+      echo $pre_link . '<a' . $link_attr . 'href="' . get_permalink( $blog ) . '"><span itemprop="name">' . apply_filters( 'the_title', $blog->post_title ) . '</span></a>' . $post_link . $separator;
 
       $this_cat = get_category( get_query_var( 'cat' ), false );
 
-      if ( $this_cat->parent != 0 ) {
+      if ( 0 != $this_cat->parent ) {
 
-        $cats = get_category_parents( $this_cat->parent, TRUE, $separator );
+        $cats = get_category_parents( $this_cat->parent, true, $separator );
         $cats = str_replace( '<a', $pre_link . '<a' . $link_attr, $cats );
         $cats = str_replace( '</a>', '</a>' . $post_link, $cats );
         echo $cats;
@@ -167,19 +168,9 @@ function om_the_breadcrumbs() {
 
       $this_tax = get_queried_object();
 
-      if ( 'showseason' == $this_tax->taxonomy ) {
+      if ( 0 != $this_tax->parent ) {
 
-        $shows = get_page_by_title( 'Shows' );
-        $history = get_page_by_title( 'History' );
-
-        echo $pre_link . '<a' . $link_attr . 'href="' . get_permalink( $shows->ID ) . '">' . apply_filters( 'the_title', $shows->post_title ) . '</a>' . $post_link . $separator;
-        echo $pre_link . '<a' . $link_attr . 'href="' . get_permalink( $history->ID ) . '">' . apply_filters( 'the_title', $history->post_title ) . '</a>' . $post_link . $separator;
-
-      }
-
-      if ( $this_tax->parent != 0 ) {
-
-        $taxi = get_category_parents( $this_tax->parent, TRUE, $separator );
+        $taxi = get_category_parents( $this_tax->parent, true, $separator );
         $taxi = str_replace( '<a', $pre_link . '<a' . $link_attr, $taxi );
         $taxi = str_replace( '</a>', '</a>' . $post_link, $taxi );
         echo $taxi;
@@ -195,7 +186,7 @@ function om_the_breadcrumbs() {
     } elseif ( is_day() ) {
 
       echo sprintf( $link, get_year_link( get_the_time( 'Y' ) ), get_the_time( 'Y' ) ) . $separator;
-      echo sprintf( $link, get_month_link( get_the_time( 'Y' ), get_the_time( 'm' ) ), get_the_time( 'F') ) . $separator;
+      echo sprintf( $link, get_month_link( get_the_time( 'Y' ), get_the_time( 'm' ) ), get_the_time( 'F' ) ) . $separator;
       echo $pre_current . get_the_time( 'd' ) . $post_current;
 
     } elseif ( is_month() ) {
@@ -209,7 +200,7 @@ function om_the_breadcrumbs() {
 
     } elseif ( is_single() && ! is_attachment() ) {
 
-      if ( get_post_type() != 'post' ) {
+      if ( 'post' != get_post_type() ) {
 
         $post_type = get_post_type_object( get_post_type() );
         $slug = $post_type->rewrite;
@@ -224,11 +215,11 @@ function om_the_breadcrumbs() {
       } else {
 
         $cat = get_the_category(); $cat = $cat[0];
-        $cats = get_category_parents( $cat, TRUE, $separator );
+        $cats = get_category_parents( $cat, true, $separator );
 
-        if ( $show_current == 0) {
+        if ( 0 == $show_current ) {
 
-          $cats = preg_replace( "#^(.+)$separator$#", "$1", $cats );
+          $cats = preg_replace( "#^(.+)$separator$#", '$1', $cats );
 
         }
 
@@ -236,7 +227,7 @@ function om_the_breadcrumbs() {
         $cats = str_replace( '</a>', '</a>' . $post_link, $cats );
         echo $cats;
 
-        if ( $show_current == 1 ) {
+        if ( 1 == $show_current ) {
 
           echo $pre_current . get_the_title() . $post_current;
 
@@ -244,7 +235,7 @@ function om_the_breadcrumbs() {
 
       }
 
-    } elseif ( ! is_single() && ! is_page() && get_post_type() != 'post' && ! is_404() ) {
+    } elseif ( ! is_single() && ! is_page() && 'post' != get_post_type() && ! is_404() ) {
 
       $post_type = get_post_type_object( get_post_type() );
       echo $pre_current . $post_type->labels->singular_name . $post_current;
@@ -253,13 +244,13 @@ function om_the_breadcrumbs() {
 
       $parent = get_post( $post->post_parent );
       $cat = get_the_category( $parent->ID ); $cat = $cat[0];
-      $cats = get_category_parents( $cat, TRUE, $separator );
+      $cats = get_category_parents( $cat, true, $separator );
       $cats = str_replace( '<a', $pre_link . '<a' . $link_attr, $cats );
       $cats = str_replace( '</a>', '</a>' . $post_link, $cats );
       echo $cats;
       printf( $link, get_permalink( $parent ), $parent->post_title );
 
-      if ( $show_current == 1 ) {
+      if ( 1 == $show_current ) {
 
         echo $separator . $pre_current . get_the_title() . $post_current;
 
@@ -267,17 +258,9 @@ function om_the_breadcrumbs() {
 
     } elseif ( is_page() && ! $post->post_parent ) {
 
-      if ( $show_current == 1 ) {
+      if ( 1 == $show_current ) {
 
-        if ( isset($_GET['album']) && isset($_GET['title']) ) {
-
-          echo '<li typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="'.get_permalink($post->ID).'">'.get_the_title().'</a></li>'.$separator.$pre_current.urldecode($_GET['title']).$post_current;
-
-        } else {
-
-          echo $pre_current . get_the_title() . $post_current;
-
-        }
+        echo $pre_current . get_the_title() . $post_current;
 
       }
 
@@ -298,7 +281,7 @@ function om_the_breadcrumbs() {
 
       for ( $i = 0; $i < count( $breadcrumbs ); $i++ ) {
 
-        echo $breadcrumbs[$i];
+        echo $breadcrumbs[ $i ];
 
         if ( $i != count( $breadcrumbs ) - 1 ) {
 

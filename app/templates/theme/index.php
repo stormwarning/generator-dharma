@@ -18,17 +18,19 @@
 
   <?php
 
-    while ( have_posts() ) : the_post();
+    while ( have_posts() ) :
+
+      the_post();
 
   ?>
-  <article class="main-content">
+  <article class="excerpt-content">
     <?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
-    <?php the_content(); ?>
+    <?php the_excerpt(); ?>
   </article>
   <?php
 
-    endwhile; // end of the loop.
+    endwhile; // close the loop.
 
   ?>
 

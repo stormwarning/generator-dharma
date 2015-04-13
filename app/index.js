@@ -1,3 +1,4 @@
+/* jshint node: true */
 'use strict';
 
 var util = require('util'),
@@ -126,7 +127,7 @@ var DharmaGenerator = yeoman.generators.Base.extend({
     this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
     this.copy('jscsrc', '.jscsrc');
-    this.copy('phpcs.xml', 'phpcs.xml');
+    this.copy('_phpcs.xml', 'phpcs.xml');
     this.copy('scss-lint.yml', '.scss-lint.yml');
     this.template('_gitignore', '.gitignore');
     this.copy('gitattributes', '.gitattributes');
