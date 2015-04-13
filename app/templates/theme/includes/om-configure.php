@@ -68,6 +68,10 @@ if ( ! function_exists( 'om_startup' ) ) {
     // keep Yoast SEO metabox in last place
     add_action( 'wpseo_metabox_prio', 'om_yoast_seo_metabox_priority' );
 
+    // clean up shortcode formatting/output
+    add_filter( 'the_content', 'om_clean_shortcodes' );
+    add_filter( 'the_content', 'om_fix_paragraph_nesting', 99 );
+
   }
 
 }
@@ -212,7 +216,7 @@ if ( ! function_exists( 'om_scripts_and_styles' ) ) {
 
       if ( $is_IE ) {
 
-        wp_register_script ( 'html5shiv', "http://html5shiv.googlecode.com/svn/trunk/html5.js" , false, true );
+        wp_register_script( 'html5shiv', 'http://html5shiv.googlecode.com/svn/trunk/html5.js' , false, true );
 
       }
 
@@ -271,7 +275,7 @@ if ( ! function_exists( 'om_cleaner_caption' ) ) {
       'id' => '',
       'align' => 'alignnone',
       'width' => '',
-      'caption' => ''
+      'caption' => '',
     );
 
     // Merge the defaults with user input
@@ -316,7 +320,7 @@ if ( ! function_exists( 'om_image_tag_class' ) ) {
 
   function om_image_tag_class( $class, $id, $align, $size ) {
 
-    $align = 'align' . esc_attr($align);
+    $align = 'align' . esc_attr( $align );
 
     return $align;
 
@@ -334,13 +338,13 @@ if ( ! function_exists( 'om_image_editor' ) ) {
       array(
         '/\s+width="\d+"/i',
         '/\s+height="\d+"/i',
-        '/alt=""/i'
+        '/alt=""/i',
       ),
       array(
         '',
         '',
         '',
-        'alt="' . $title . '"'
+        'alt="' . $title . '"',
       ),
       $html );
 
@@ -385,8 +389,11 @@ if ( ! function_exists( 'om_img_unautop' ) ) {
  */
 function om_dont_update_theme( $r, $url ) {
 
-  if ( 0 !== strpos( $url, 'http://api.wordpress.org/themes/update-check' ) )
+  if ( 0 !== strpos( $url, 'http://api.wordpress.org/themes/update-check' ) ) {
+
     return $r; // Not a theme update request. Bail immediately.
+
+  }
 
   $themes = unserialize( $r['body']['themes'] );
   unset( $themes[ get_option( 'template' ) ] );
@@ -451,6 +458,40 @@ if ( ! function_exists( 'om_yoast_seo_metabox_priority' ) ) {
   function om_yoast_seo_metabox_priority() {
 
     return 'low';
+
+  }
+
+}
+
+
+
+
+/**
+ * Clean up shortcode formatting/output
+ */
+if ( ! function_exists( 'om_clean_shortcodes' ) ) {
+
+  function om_clean_shortcodes() {
+
+    $array = array(
+      '<p>[' => '[',
+      ']</p>' => ']',
+      ']<br />' => ']',
+    );
+    $content = strtr( $content, $array );
+
+    return $content;
+
+  }
+
+}
+
+
+if ( ! function_exists( 'om_fix_paragraph_nesting' ) ) {
+
+  function om_fix_paragraph_nesting() {
+
+    return str_replace( array( '<div></p>', '<p></div>' ), array( '<div>', '</div>' ), $content );
 
   }
 
