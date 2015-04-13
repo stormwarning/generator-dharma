@@ -22,7 +22,7 @@
   </article>
   <?php
 
-    endwhile; // end of the loop.
+    endwhile; // close the loop.
 
   ?>
 
