@@ -18,7 +18,8 @@ if ( ! function_exists( 'om_login_styles' ) ) {
 
   function om_login_logo() {
 
-    echo '<link rel="stylesheet" href="' . get_template_directory_uri() . '/assets/styles/login-style.css">';
+    wp_register_style( 'login-css', get_template_directory_uri() . '/assets/styles/login-style.css' );
+    wp_enqueue_style( 'login-css' );
 
   }
 
@@ -72,26 +73,35 @@ add_action( 'network_admin_notices', 'om_update_nag', 3 );
 
 function om_update_nag() {
 
-  if ( is_multisite() && ! current_user_can('update_core') )
+  if ( is_multisite() && ! current_user_can( 'update_core' ) ) {
+
     return false;
+
+  }
 
   global $pagenow;
 
-  if ( 'update-core.php' == $pagenow )
+  if ( 'update-core.php' == $pagenow ) {
+
     return;
+
+  }
 
   $cur = get_preferred_from_update_core();
 
-  if ( ! isset( $cur->response ) || $cur->response != 'upgrade' )
+  if ( ! isset( $cur->response ) || 'upgrade' != $cur->response ) {
+
     return false;
 
-  if ( current_user_can('update_core') ) {
+  }
 
-    $msg = sprintf( __('<a href="http://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> is available! <a href="%2$s">Please update now</a>.<br>Reach out to your friends at <a href="http://overhaulmedia.com/" target="_blank">Overhaul Media</a> for assistance!'), $cur->current, network_admin_url( 'update-core.php' ) );
+  if ( current_user_can( 'update_core' ) ) {
+
+    $msg = sprintf( __( '<a href="http://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> is available! <a href="%2$s">Please update now</a>.<br>Reach out to your friends at <a href="http://overhaulmedia.com/" target="_blank">Overhaul Media</a> for assistance!' ), $cur->current, network_admin_url( 'update-core.php' ) );
 
   } else {
 
-    $msg = sprintf( __('<a href="http://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> is available! Please notify the site administrator.<br>Reach out to your friends at <a href="http://overhaulmedia.com/" target="_blank">Overhaul Media</a> for assistance!'), $cur->current );
+    $msg = sprintf( __( '<a href="http://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> is available! Please notify the site administrator.<br>Reach out to your friends at <a href="http://overhaulmedia.com/" target="_blank">Overhaul Media</a> for assistance!' ), $cur->current );
 
   }
 
