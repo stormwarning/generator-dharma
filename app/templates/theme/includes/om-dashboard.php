@@ -97,11 +97,11 @@ function om_update_nag() {
 
   if ( current_user_can( 'update_core' ) ) {
 
-    $msg = sprintf( __( '<a href="http://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> is available! <a href="%2$s">Please update now</a>.<br>Reach out to your friends at <a href="http://overhaulmedia.com/" target="_blank">Overhaul Media</a> for assistance!' ), $cur->current, network_admin_url( 'update-core.php' ) );
+    $msg = sprintf( __( '<a href="http://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> is available! <a href="%2$s">Please update now</a>.<br><a href="mailto:info@overhaulmedia.com?subject=WordPress updating">Reach out to your friends</a> at <a href="http://overhaulmedia.com/" target="_blank">Overhaul Media</a> for assistance!' ), $cur->current, network_admin_url( 'update-core.php' ) );
 
   } else {
 
-    $msg = sprintf( __( '<a href="http://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> is available! Please notify the site administrator.<br>Reach out to your friends at <a href="http://overhaulmedia.com/" target="_blank">Overhaul Media</a> for assistance!' ), $cur->current );
+    $msg = sprintf( __( '<a href="http://codex.wordpress.org/Version_%1$s">WordPress %1$s</a> is available! Please notify the site administrator.<br><a href="mailto:info@overhaulmedia.com?subject=WordPress updating">Reach out to your friends</a> at <a href="http://overhaulmedia.com/" target="_blank">Overhaul Media</a> for assistance!' ), $cur->current );
 
   }
 
