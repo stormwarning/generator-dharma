@@ -21,6 +21,8 @@ html {
 }
 
 
+
+
 /**
  * High-, page-level styling.
  *
@@ -47,6 +49,8 @@ html {
   -ms-text-size-adjust: 100%; /* [4] */
   background-color: $color-background;
 }
+
+
 
 
 /**
@@ -81,7 +85,7 @@ p > img {
   margin: 0 auto;
 }
 
-// Stop `max-width` from breaking Google Maps images.
+/* Stop `max-width` from breaking Google Maps images. */
 .google-map img { max-width: none; }
 
 
@@ -113,31 +117,40 @@ figure {
 }
 
 
+
+
 /**
- * Layout system
+ * Grid layout system.
+ * 1. Remove left-most gutter spacing.
+ * 2. Remove whitespace from inline-block elements.
  *
  * @link csswizardry.com/csswizardry-grids/
  */
 %layout {
   padding: 0;
   margin: 0;
-  margin-left: -$layout-gutter;
+  margin-left: -$layout-gutter; /* [1] */
+  font-size: 0; /* [2] */
   list-style: none;
 }
 
+
 /**
  * 1. Cause columns to stack side-by-side.
- * 2. Space columns apart.
- * 3. Align columns to the tops of each other.
- * 4. Full-width unless told to behave otherwise.
- * 5. Required to combine fluid widths and fixed gutters.
+ * 2. Full-width unless told to behave otherwise.
+ * 3. Space columns apart.
+ * 4. Make sure grid blocks don't inherit font-size from container.
+ * 5. Align columns to the tops of each other.
  */
 %layout-item {
   display: inline-block; /* [1] */
-  width: 100%; /* [4] */
-  padding-left: $layout-gutter; /* [2] */
-  vertical-align: top; /* [3] */
+  width: 100%; /* [2] */
+  padding-left: $layout-gutter; /* [3] */
+  font-size: $base-font-size; /* [4] */
+  vertical-align: top; /* [5] */
 }
+
+
 
 
 /**
@@ -149,12 +162,15 @@ figure {
  * @link css-101.org/articles/clearfix/latest-new-clearfix-so-far.php
  */
 %cf {
+
   &:after {
     display: table;
     clear: both;
     content: "";
   }
 }
+
+
 
 
 /**
@@ -201,6 +217,8 @@ figure {
 }
 
 
+
+
 /**
 * Text meant only for screen readers.
 */
@@ -226,6 +244,6 @@ figure {
     color: $color-text;
     text-decoration: none;
     background-color: $color-background;
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 2px 2px rgba($color-shadow, 0.6);
   }
 }
