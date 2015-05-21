@@ -12,7 +12,7 @@
  */
 @import "mixins";
 @import "variables";
-@import "../vendor/normalize-scss/_normalize";
+@import "../vendor/normalize-scss/normalize";
 
 
 /**
@@ -26,6 +26,7 @@
  * Objects, abstractions, and constructs
  */
 //@import "partials/object.button";
+@import "partials/object.form";
 //@import "partials/object.nav";
 //@import "partials/object.sprite";
 
