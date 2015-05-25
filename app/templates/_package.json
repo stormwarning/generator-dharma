@@ -2,6 +2,9 @@
   "name": "<%= _.slugify(siteName) %>",
   "description": "DESCRIPTION",
   "version": "0.1.0",
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "author": {
     "name": "AUTHOR",
     "url": "http://AUTHOR.com/"
