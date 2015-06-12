@@ -9,7 +9,7 @@
 
 <main class="main" id="main" role="main">
 
-  <article class="main-content" id="post-<?php the_ID(); ?>">
+  <article class="main-content" id="post-<?php the_ID(); ?>" role="article">
     <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
     <?php the_content(); ?>

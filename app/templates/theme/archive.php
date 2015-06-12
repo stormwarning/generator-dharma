@@ -92,7 +92,7 @@
       the_post();
 
   ?>
-  <article class="excerpt-content">
+  <article class="excerpt-content" role="article">
     <?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
     <?php the_excerpt(); ?>
@@ -115,7 +115,7 @@
 
 ?>
 
-  <article class="no-results">
+  <article class="no-results" role="article">
     <h1 class="entry-title">Sorry, no results found</h1>
   </article>
 

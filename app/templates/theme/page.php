@@ -22,7 +22,7 @@
       the_post();
 
   ?>
-  <article class="main-content">
+  <article class="main-content" role="article">
     <?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
     <?php the_content(); ?>
