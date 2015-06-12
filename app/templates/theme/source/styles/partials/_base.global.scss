@@ -2,15 +2,41 @@
     #GLOBAL
 \*------------------------------------*/
 /**
- * Set the global `box-sizing` state to `border-box`.
+ * High-, page-level styling.
  *
- * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
- * paulirish.com/2012/box-sizing-border-box-ftw
+ * 1. Set the default `font-size` and `line-height` for the entire project,
+ *    sourced from our default variables. The `font-size` is calculated to exist
+ *    in ems, the `line-height` is calculated to exist unitlessly.
+ * 2. Force scrollbars to always be visible to prevent awkward ‘jumps’ when
+ *    navigating between pages that do/do not have enough content to produce
+ *    scrollbars naturally.
+ * 3. Ensure the page always fills at least the entire height of the viewport.
+ * 4. Prevent certain mobile browsers from automatically zooming fonts.
+ * 5. Fonts on OSX will look more consistent with other systems that do not
+ *    render text using sub-pixel anti-aliasing.
+ * 6. Set the global `box-sizing` state to `border-box`.
  */
 html {
-  box-sizing: border-box;
+  min-height: 100%; /* [3] */
+  overflow-y: scroll; /* [2] */
+  font-size: ($base-font-size / 16px) * 1em; /* [1] */
+  -moz-osx-font-smoothing: grayscale; /* [5] */
+  -webkit-font-smoothing: antialiased; /* [5] */
+  line-height: $base-line-height / $base-font-size; /* [1] */
+  color: $color-text;
+  -webkit-text-size-adjust: 100%; /* [4] */
+  -ms-text-size-adjust: 100%; /* [4] */
+  background-color: $color-background;
+  box-sizing: border-box; /* [6] */
 }
 
+
+/**
+ * A better `box-sizing` best-practice.
+ *
+ * @link https://css-tricks.com/?p=175473
+ * @link http://paulirish.com/2012/box-sizing-border-box-ftw
+ */
 * {
 
   &,
@@ -24,30 +50,16 @@ html {
 
 
 /**
- * High-, page-level styling.
+ * Sticky footers through flexbox.
  *
- * 1. Set the default `font-size` and `line-height` for the entire project,
- *    sourced from our default variables. The `font-size` is calculated to exist
- *    in ems, the `line-height` is calculated to exist unitlessly.
- * 2. Force scrollbars to always be visible to prevent awkward ‘jumps’ when
- *    navigating between pages that do/do not have enough content to produce
- *    scrollbars naturally.
- * 3. Ensure the page always fills at least the entire height of the viewport.
- * 4. Prevent certain mobile browsers from automatically zooming fonts.
- * 5. Fonts on OSX will look more consistent with other systems that do not
- *    render text using sub-pixel anti-aliasing.
+ * 1. Vertical flex-direction requires a height value to be set.
+ *
+ * @link http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
  */
-html {
-  min-height: 100%; /* [3] */
-  overflow-y: scroll; /* [2] */
-  font-size: ($base-font-size / 16px) * 1em; /* [1] */
-  -webkit-font-smoothing: antialiased; /* [5] */
-  -moz-osx-font-smoothing: grayscale; /* [5] */
-  line-height: $base-line-height / $base-font-size; /* [1] */
-  color: $color-text;
-  -webkit-text-size-adjust: 100%; /* [4] */
-  -ms-text-size-adjust: 100%; /* [4] */
-  background-color: $color-background;
+body {
+  display: flex;
+  min-height: 100vh; /* [1] */
+  flex-direction: column;
 }
 
 
@@ -121,10 +133,11 @@ figure {
 
 /**
  * Grid layout system.
+ *
  * 1. Remove left-most gutter spacing.
  * 2. Remove whitespace from inline-block elements.
  *
- * @link csswizardry.com/csswizardry-grids/
+ * @link http://csswizardry.com/csswizardry-grids/
  */
 %layout {
   padding: 0;
@@ -155,11 +168,11 @@ figure {
 
 /**
  * Micro clearfix.
-
+ *
  * Extend the clearfix class with Sass to avoid the `.cf` class appearing over
  * and over in your markup.
  *
- * @link css-101.org/articles/clearfix/latest-new-clearfix-so-far.php
+ * @link http://css-101.org/articles/clearfix/latest-new-clearfix-so-far.php
  */
 %cf {
 
@@ -186,6 +199,7 @@ figure {
   transform: translateY(-50%);
   backface-visibility: hidden;
 }
+
 
 %center-container {
   position: absolute;
@@ -220,30 +234,16 @@ figure {
 
 
 /**
-* Text meant only for screen readers.
-*/
+ * Text meant only for screen readers.
+ *
+ * @link http://h5bp.com/v
+ */
 %visually-hidden {
   position: absolute !important;
   width: 1px;
   height: 1px;
+  margin: -1px;
   overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-
-  &:hover,
-  &:focus,
-  &:active {
-    top: 5px;
-    left: 5px;
-    z-index: 100000; /* Above WP toolbar */
-    display: block;
-    width: auto;
-    height: auto;
-    padding: 15px 23px 14px;
-    clip: auto !important;
-    line-height: normal;
-    color: $color-text;
-    text-decoration: none;
-    background-color: $color-background;
-    box-shadow: 0 0 2px 2px rgba($color-shadow, 0.6);
-  }
+  clip: rect(0 0 0 0);
+  border: 0;
 }
