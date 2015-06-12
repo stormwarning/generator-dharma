@@ -523,25 +523,25 @@ if ( ! function_exists( 'om_disable_emoji' ) {
     remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
     add_filter( 'tiny_mce_plugins', 'disable_tinymce_emoji' );
 
-    /**
-     * Filter function used to remove the tinymce emoji plugin.
-     *
-     * @param  array $plugins
-     * @return array Difference betwen the two arrays
-     */
-    function disable_tinymce_emoji( $plugins ) {
+  }
 
-      if ( is_array( $plugins ) ) {
+}
 
-        return array_diff( $plugins, array( 'wpemoji' ) );
+/**
+ * Filter function used to remove the tinymce emoji plugin.
+ *
+ * @param  array $plugins
+ * @return array Difference betwen the two arrays
+ */
+function disable_tinymce_emoji( $plugins ) {
 
-      } else {
+  if ( is_array( $plugins ) ) {
 
-        return array();
+    return array_diff( $plugins, array( 'wpemoji' ) );
 
-      }
+  } else {
 
-    }
+    return array();
 
   }
 
