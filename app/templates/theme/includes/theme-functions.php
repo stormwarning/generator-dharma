@@ -8,6 +8,11 @@ if ( ! function_exists( 'theme_startup' ) ) {
 
   function theme_startup() {
 
+    // register menu areas
+    register_nav_menus( array(
+      'main-menu' => 'Main menu',
+    ) );
+
     // enqueue theme-specific scripts and styles
     add_action( 'wp_enqueue_scripts', 'theme_scripts_and_styles', 999 );
 
