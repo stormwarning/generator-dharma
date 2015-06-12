@@ -49,12 +49,13 @@
 /**
  * WordPress default classes etc.
  */
-//@import "partials/trump.wordpress";
+@import "partials/trump.wordpress";
 
 
 /**
  * Style trumps; helper and vendor styles
  */
+@import "partials/trump.a11y";
 // @import "partials/trump.modernizr";
 // @import "partials/trump.print";
 // @import "partials/trump.debug";

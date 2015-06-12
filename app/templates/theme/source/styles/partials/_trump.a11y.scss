@@ -1,0 +1,32 @@
+/*------------------------------------*\
+    #TRUMP.A11Y
+\*------------------------------------*/
+/**
+ * Accessibility helper classes.
+ */
+
+
+/**
+ * Skip-to-content link.
+ */
+.skip-navigation {
+  @extend %visually-hidden;
+
+  &:hover,
+  &:focus,
+  &:active {
+    top: 5px;
+    left: 5px;
+    z-index: 100000; /* Above WP toolbar */
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 15px 23px 14px;
+    clip: auto;
+    line-height: normal;
+    color: $color-text;
+    text-decoration: none;
+    background-color: $color-background;
+    box-shadow: 0 0 2px 2px rgba($color-shadow, 0.6);
+  }
+}
