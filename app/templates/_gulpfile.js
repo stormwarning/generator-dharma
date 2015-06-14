@@ -98,6 +98,25 @@ gulp.task('plugins', function () {
 
 });
 
+gulp.task('modernizr', function () {
+
+  return gulp.src(source.scripts)
+    .pipe($.modernizr({
+      options: [
+        'setClasses'
+      ],
+      tests: [
+        'flexbox',
+        'flexboxlegacy',
+        'flexboxtweener'
+      ],
+      crawl: false
+    }))
+    .pipe($.uglify())
+    .pipe(gulp.dest(assets.scripts));
+
+});
+
 
 // COPY ONE-OFF VENDOR SCRIPTS ========================================
 gulp.task('vendor', function () {

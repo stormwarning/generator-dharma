@@ -255,6 +255,27 @@ var DharmaGenerator = yeoman.generators.Base.extend({
 
   },
 
+  imagefiles: function() {
+
+    this.log(chalk.blue('Creating site icon images...'));
+
+    this.copy('android-chrome-192.png', 'android-chrome-192.png');
+    this.copy('manifest.json', 'manifest.json');
+    this.copy('apple-touch-icon-precomposed.png', 'apple-touch-icon-precomposed.png');
+    this.copy('apple-touch-icon.png', 'apple-touch-icon.png');
+    this.copy('favicon-16.png', 'favicon-16.png');
+    this.copy('favicon-32.png', 'favicon-32.png');
+    this.copy('favicon-48.png', 'favicon-48.png');
+    this.copy('icon-1024.png', 'icon-1024.png');
+    this.copy('ms-tile-wide.png', 'ms-tile-wide.png');
+    this.copy('ms-tile.png', 'ms-tile.png');
+    this.copy('browserconfig.xml', 'browserconfig.xml');
+    this.copy('theme/screenshot.png', this.themeDir + '/screenshot.png');
+
+    this.log(chalk.blue('...done!'));
+
+  },
+
   gitsome: function() {
 
     var done = this.async();
