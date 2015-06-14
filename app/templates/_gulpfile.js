@@ -98,7 +98,7 @@ gulp.task('plugins', function () {
 
 });
 
-gulp.task('modernizr' function () {
+gulp.task('modernizr', function () {
 
   return gulp.src(source.scripts)
     .pipe($.modernizr({
@@ -115,7 +115,7 @@ gulp.task('modernizr' function () {
     .pipe($.uglify())
     .pipe(gulp.dest(assets.scripts));
 
-})
+});
 
 
 // COPY ONE-OFF VENDOR SCRIPTS ========================================
