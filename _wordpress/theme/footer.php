@@ -6,6 +6,7 @@
  */
 ?>
     <footer class="site-footer" role="contentinfo">
+      <p><small>&copy; <?php om_copyright_year(); ?></small></p>
       <p><small>Site by <a class="om-tag" href="http://overhaulmedia.com/" target="_blank">Overhaul</a></small></p>
     </footer>
 
