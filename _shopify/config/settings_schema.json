@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Template content",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Content snippets used throughout the theme."
+      },
+      {
+        "type": "textarea",
+        "id": "warranty_text",
+        "label": "Returns & Warranty",
+        "info": "This text appears after product description & specs."
+      }
+    ]
+  }
+]
