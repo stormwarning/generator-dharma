@@ -10,6 +10,7 @@ The Dharma generator builds a base WordPress project following best practices an
 [![GitHub Release](https://img.shields.io/github/release/overhaul/generator-dharma.svg?style=flat)](https://github.com/overhaul/generator-dharma/releases)
 [![npm Downloads](https://img.shields.io/npm/dm/generator-dharma.svg?style=flat)](https://www.npmjs.com/package/generator-dharma)
 [![Code Climate](https://img.shields.io/codeclimate/github/overhaul/generator-dharma.svg?style=flat)](https://codeclimate.com/github/overhaul/generator-dharma)
+[![Dependencies](https://img.shields.io/david/overhaul/generator-dharma.svg?style=flat)](https://david-dm.org/overhaul/generator-dharma)
 [![Build Status](https://img.shields.io/travis/overhaul/generator-dharma.svg?style=flat)](https://travis-ci.org/overhaul/generator-dharma)
 [![GitHub Issues](https://img.shields.io/github/issues/overhaul/generator-dharma.svg?style=flat)](https://github.com/overhaul/generator-dharma/issues)
 
