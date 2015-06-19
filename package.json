@@ -26,14 +26,13 @@
     "starter files"
   ],
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
-    "chalk": "~0.4.0",
-    "simple-git": "~0.7.0"
+    "chalk": "^1.0.0",
+    "lodash": "^3.6.0",
+    "underscore.string": "^3.0.3",
+    "yeoman-generator": "^0.20.1",
+    "yosay": "^0.3.0"
   },
   "devDependencies": {
     "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0"
   }
 }
