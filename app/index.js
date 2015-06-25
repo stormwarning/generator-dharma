@@ -5,17 +5,21 @@
 var async = require( 'async' );
 var chalk = require( 'chalk' );
 var exec = require( 'child_process' ).exec;
+var mkdirp = require( 'mkdirp' );
 var path = require( 'path' );
 var util = require( 'util' );
 var yeoman = require( 'yeoman-generator' );
 var yosay = require( 'yosay' );
 var _ = require( 'lodash' );
-var _s = require( 'underscore.string' );
+
+var project = {};
 
 module.exports = yeoman.Base.extend({
 
   constructor: function() {
 
+    project.isWordPress = false;
+    project.isShopify = false;
     yeoman.Base.apply( this, arguments );
 
     /**
@@ -41,20 +45,22 @@ module.exports = yeoman.Base.extend({
       var prompts = [
         {
           name: 'siteName',
-          message: 'What is the name of the site you’re building?'
+          message: 'What is the name of the site you’re building?',
+          type: 'filter'
         },
         {
           name: 'sitePlatform',
           message: 'What platforms will this site be built for?',
+          type: 'checkbox',
           choices: [
             {
               name: 'WordPress',
-              value: 'isWordPress',
-              checked: true
+              value: 'WordPress',
+              checked: false
             },
             {
               name: 'Shopify',
-              value: 'isShopify',
+              value: 'Shopify',
               checked: false
             }
           ]
@@ -65,6 +71,19 @@ module.exports = yeoman.Base.extend({
 
       this.prompt( prompts, function( props ) {
 
+        if ( 0 <= _.indexOf( props.sitePlatform, 'WordPress' ) ) {
+
+          project.isWordPress = true;
+
+        }
+
+        if ( 0 <= _.indexOf( props.sitePlatform, 'Shopify' ) ) {
+
+          project.isShopify = true;
+
+        }
+
+        project.siteName = props.siteName;
         this.siteName = props.siteName;
         this.sitePlatform = props.sitePlatform;
         done();
@@ -80,7 +99,7 @@ module.exports = yeoman.Base.extend({
         {
           name: 'themeDirectory',
           message: 'What should the theme directory be named?',
-          default: this._.slugify( this.siteName )
+          default: _.kebabCase( project.siteName )
         },
         {
           name: 'dbName',
@@ -141,10 +160,11 @@ module.exports = yeoman.Base.extend({
         }
       ];
 
-      if ( this.isWordPress ) {
+      if ( project.isWordPress ) {
 
         this.prompt( prompts, function( props ) {
 
+          this.themeSlug = props.themeDirectory;
           this.themeDirectory = 'content/themes/' + props.themeDirectory;
           this.dbName = props.dbName;
           this.dbUser = props.dbUser;
@@ -187,7 +207,7 @@ module.exports = yeoman.Base.extend({
         }
       ];
 
-      if ( this.isShopify ) {
+      if ( project.isShopify ) {
 
         this.log( 'Shopify config options can be edited in the ' + chalk.yellow( 'config.yml' ) + ' file.' );
         this.prompt( prompts, function( props ) {
@@ -208,36 +228,34 @@ module.exports = yeoman.Base.extend({
 
   configuring: {
 
-    // ?
-
   },
 
   writing: {
 
     folders: function() {
 
-      this.mkdir( 'source' );
-      this.mkdir( 'source/styles' );
-      this.mkdir( 'source/scripts' );
-      this.mkdir( 'source/images' );
+      mkdirp( 'source' );
+      mkdirp( 'source/styles' );
+      mkdirp( 'source/scripts' );
+      mkdirp( 'source/images' );
 
-      if ( this.isWordPress ) {
+      if ( project.isWordPress ) {
 
-        this.mkdir( 'content' );
-        this.mkdir( 'content/mu-plugins' );
-        this.mkdir( 'content/themes' );
-        this.mkdir( this.themeDirectory );
+        mkdirp( 'content' );
+        mkdirp( 'content/mu-plugins' );
+        mkdirp( 'content/themes' );
+        mkdirp( this.themeDirectory );
 
       }
 
-      if ( this.isShopify ) {
+      if ( project.isShopify ) {
 
-        this.mkdir( 'shopify' );
-        this.mkdir( 'shopify/assets' );
-        this.mkdir( 'shopify/config' );
-        this.mkdir( 'shopify/layout' );
-        this.mkdir( 'shopify/snippets' );
-        this.mkdir( 'shopify/templates' );
+        mkdirp( 'shopify' );
+        mkdirp( 'shopify/assets' );
+        mkdirp( 'shopify/config' );
+        mkdirp( 'shopify/layout' );
+        mkdirp( 'shopify/snippets' );
+        mkdirp( 'shopify/templates' );
 
       }
 
@@ -245,56 +263,79 @@ module.exports = yeoman.Base.extend({
 
     projectfiles: function() {
 
-      this.template( '../_shared/build/_package.json', 'package.json' );
-      this.template( '../_shared/build/_gulpfile.js',  'gulpfile.js' );
-      this.template( '../_shared/bower/_bower.json',   'bower.json' );
+      this.fs.copyTpl(
+        this.templatePath( '../shared/build/_package.json' ),
+        this.destinationPath( 'package.json' ),
+        {
+          themeSlug: this.themeSlug
+        }
+      );
+      this.fs.copyTpl(
+        this.templatePath( '../shared/build/_gulpfile.js' ),
+        this.destinationPath( 'gulpfile.js' ),
+        {
+          themeSlug: this.themeSlug
+        }
+      );
+      this.fs.copyTpl(
+        this.templatePath( '../shared/bower/_bower.json' ),
+        this.destinationPath( 'bower.json' ),
+        {
+          themeSlug: this.themeSlug
+        }
+      );
 
     },
 
     repofiles: function() {
 
-      this.copy( '../_shared/bower/_bowerrc',      '.bowerrc' );
-      this.copy( '../_shared/style/editorconfig',  '.editorconfig' );
-      this.copy( '../_shared/style/jshintrc',      '.jshintrc' );
-      this.copy( '../_shared/style/jscsrc',        '.jscsrc' );
-      this.copy( '../_shared/style/_phpcs.xml',    'phpcs.xml' );
-      this.copy( '../_shared/style/scss-lint.yml', '.scss-lint.yml' );
-      this.copy( '../_shared/git/_gitignore',      '.gitignore' );
-      this.copy( '../_shared/git/gitattributes',   '.gitattributes' );
-      this.template( '../_shared/git/_README.md',   'README.md' );
+      this.copy( '../shared/bower/_bowerrc',      '.bowerrc' );
+      this.copy( '../shared/style/editorconfig',  '.editorconfig' );
+      this.copy( '../shared/style/jshintrc',      '.jshintrc' );
+      this.copy( '../shared/style/jscsrc',        '.jscsrc' );
+      this.copy( '../shared/style/_phpcs.xml',    'phpcs.xml' );
+      this.copy( '../shared/style/scss-lint.yml', '.scss-lint.yml' );
+      this.copy( '../shared/git/_gitignore',      '.gitignore' );
+      this.copy( '../shared/git/gitattributes',   '.gitattributes' );
+      this.template( '../shared/git/_README.md',  'README.md' );
 
     },
 
     iconfiles: function() {
 
       // touch-icons, etc.
-      //     this.copy('android-chrome-192.png', 'android-chrome-192.png');
-      //     this.copy('manifest.json', 'manifest.json');
-      //     this.copy('apple-touch-icon-precomposed.png', 'apple-touch-icon-precomposed.png');
-      //     this.copy('apple-touch-icon.png', 'apple-touch-icon.png');
-      //     this.copy('favicon-16.png', 'favicon-16.png');
-      //     this.copy('favicon-32.png', 'favicon-32.png');
-      //     this.copy('favicon-48.png', 'favicon-48.png');
-      //     this.copy('icon-1024.png', 'icon-1024.png');
-      //     this.copy('ms-tile-wide.png', 'ms-tile-wide.png');
-      //     this.copy('ms-tile.png', 'ms-tile.png');
-      //     this.copy('browserconfig.xml', 'browserconfig.xml');
-      //     this.copy('theme/screenshot.png', this.themeDir + '/screenshot.png');
+      this.copy( '../shared/images/android-chrome-192.png', 'android-chrome-192.png' );
+      this.copy( '../shared/images/manifest.json',          'manifest.json' );
+      this.copy( '../shared/images/apple-touch-icon-precomposed.png', 'apple-touch-icon-precomposed.png' );
+      this.copy( '../shared/images/apple-touch-icon.png',   'apple-touch-icon.png' );
+      this.copy( '../shared/images/favicon-16.png',         'favicon-16.png' );
+      this.copy( '../shared/images/favicon-32.png',         'favicon-32.png' );
+      this.copy( '../shared/images/favicon-48.png',         'favicon-48.png' );
+      this.copy( '../shared/images/icon-1024.png',          'icon-1024.png' );
+      this.copy( '../shared/images/ms-tile-wide.png',       'ms-tile-wide.png' );
+      this.copy( '../shared/images/ms-tile.png',            'ms-tile.png' );
+      this.copy( '../shared/images/browserconfig.xml',      'browserconfig.xml' );
+
+      if ( project.isWordPress ) {
+
+        this.copy( '../wordpress/theme/screenshot.png', this.themeDirectory + '/screenshot.png' );
+
+      }
 
     },
 
     serverfiles: function() {
 
-      this.copy( '../_shared/server/htaccess',     '.htaccess' );
-      this.copy( '../_shared/server/humans.txt',   'humans.txt' );
-      this.copy( '../_shared/server/robots.txt',   'robots.txt' );
+      this.copy( '../shared/server/htaccess',   '.htaccess' );
+      this.copy( '../shared/server/humans.txt', 'humans.txt' );
+      this.copy( '../shared/server/robots.txt', 'robots.txt' );
 
     },
 
     templates: function() {
 
       this.fs.copyTpl(
-        this.templatePath( 'static/index.html' ),
+        this.templatePath( '../static/index.html' ),
         this.destinationPath( 'index.html' ),
         {
 
@@ -303,59 +344,52 @@ module.exports = yeoman.Base.extend({
 
       // will this work? maybe not...
       this.fs.copyTpl(
-        this.templatePath( 'shared/sass/' ),
+        this.templatePath( '../shared/sass/' ),
         this.destinationPath( 'source/styles/' ),
         {
 
         }
       );
 
-      if ( this.isWordPress ) {
+      if ( project.isWordPress ) {
 
-        this.template( 'wordpress/_index.php',        'index.php' );
-        this.template( 'wordpress/_local-config.php', 'local-config-sample.php' );
-        this.template( 'wordpress/_wp-config.php',    'wp-config.php' );
+        // WordPress config & bootstrap
+        this.template( '../wordpress/_index.php',        'index.php' );
+        this.template( '../wordpress/_local-config.php', 'local-config-sample.php' );
+        this.template( '../wordpress/_wp-config.php',    'wp-config.php' );
 
-        this.directory( 'wordpress/theme/includes/',  this.themeDirectory + '/includes/' );
+        // WordPress theme function files
+        this.directory( '../wordpress/theme/includes/',  this.themeDirectory + '/includes/' );
 
         // other WordPress theme files
-        //     this.template(
-        //       'theme/_style.css',
-        //       this.themeDir + '/style.css');
-        //     this.copy(
-        //       'theme/404.php',
-        //       this.themeDir + '/404.php');
-        //     this.copy(
-        //       'theme/archive.php',
-        //       this.themeDir + '/archive.php');
-        //     this.copy(
-        //       'theme/footer.php',
-        //       this.themeDir + '/footer.php');
-        //     this.copy(
-        //       'theme/front-page.php',
-        //       this.themeDir + '/front-page.php');
-        //     this.copy(
-        //       'theme/functions.php',
-        //       this.themeDir + '/functions.php');
-        //     this.copy(
-        //       'theme/header.php',
-        //       this.themeDir + '/header.php');
-        //     this.copy(
-        //       'theme/index.php',
-        //       this.themeDir + '/index.php');
-        //     this.copy(
-        //       'theme/page.php',
-        //       this.themeDir + '/page.php');
-        //     this.copy(
-        //       'theme/search.php',
-        //       this.themeDir + '/search.php');
-        //     this.copy(
-        //       'theme/single.php',
-        //       this.themeDir + '/single.php');
+        this.fs.copyTpl(
+          this.templatePath( '../wordpress/theme/_style.css' ),
+          this.destinationPath( this.themeDirectory ),
+          {
+
+          }
+        );
+        this.fs.copy(
+          this.templatePath( '../wordpress/theme/404.php' ),
+          this.destinationPath( this.themeDirectory + '/404.php' ),
+          {
+
+          }
+        );
+        this.copy( '../wordpress/theme/404.php',        this.themeDirectory + '/404.php' );
+        this.copy( '../wordpress/theme/archive.php',    this.themeDirectory + '/archive.php' );
+        this.copy( '../wordpress/theme/footer.php',     this.themeDirectory + '/footer.php' );
+        this.copy( '../wordpress/theme/front-page.php', this.themeDirectory + '/front-page.php' );
+        this.copy( '../wordpress/theme/functions.php',  this.themeDirectory + '/functions.php' );
+        this.copy( '../wordpress/theme/header.php',     this.themeDirectory + '/header.php' );
+        this.copy( '../wordpress/theme/index.php',      this.themeDirectory + '/index.php' );
+        this.copy( '../wordpress/theme/page.php',       this.themeDirectory + '/page.php' );
+        this.copy( '../wordpress/theme/search.php',     this.themeDirectory + '/search.php' );
+        this.copy( '../wordpress/theme/single.php',     this.themeDirectory + '/single.php' );
 
       }
 
-      if ( this.isShopify ) {
+      if ( project.isShopify ) {
 
         // Shopify theme files
 
@@ -368,7 +402,7 @@ module.exports = yeoman.Base.extend({
   install: function() {
 
     // Install npm and bower deps.
-    this.installDependencies();
+    // this.installDependencies();
 
     // Run git setup.
 
