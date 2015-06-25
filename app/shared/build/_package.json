@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(siteName) %>",
+  "name": "<%= themeSlug %>",
   "description": "DESCRIPTION",
   "version": "0.1.0",
   "scripts": {
