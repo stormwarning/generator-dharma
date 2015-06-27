@@ -172,7 +172,7 @@ module.exports = yeoman.Base.extend({
           this.dbHost = props.dbHost;
           this.dbPrefix = props.dbPrefix;
           this.wpAdmin = props.wpAdmin;
-          this.wpEnv = props.wpEnv;
+          project.wpEnv = props.wpEnv;
           done();
 
         }.bind( this ) );
