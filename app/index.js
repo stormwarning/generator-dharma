@@ -157,6 +157,11 @@ module.exports = yeoman.Base.extend({
             }
           ],
           default: 'symlink'
+        },
+        {
+          name: 'wpDirectory',
+          message: 'What directory is WordPress installed in?',
+          default: 'wp'
         }
       ];
 
@@ -173,6 +178,7 @@ module.exports = yeoman.Base.extend({
           this.dbPrefix = props.dbPrefix;
           this.wpAdmin = props.wpAdmin;
           project.wpEnv = props.wpEnv;
+          this.wpDirectory = props.wpDirectory;
           done();
 
         }.bind( this ) );
@@ -332,22 +338,29 @@ module.exports = yeoman.Base.extend({
 
     },
 
+    sourcefiles: function() {
+
+      this.template( '../shared/sass/_main.scss', 'source/styles/main.scss' );
+      this.copy( '../shared/sass/mixins.scss', 'source/styles/_mixins.scss' );
+      this.copy( '../shared/sass/variables.scss', 'source/styles/_variables.scss' );
+      this.directory( '../shared/sass/partials/', 'source/styles/partials/' );
+
+      if ( project.isWordPress ) {
+
+        this.copy( '../shared/sass/editor-style.scss', 'source/styles/editor-style.scss' );
+        this.copy( '../shared/sass/login-style.scss', 'source/styles/login-style.scss' );
+
+      }
+
+    },
+
     templates: function() {
 
       this.fs.copyTpl(
         this.templatePath( '../static/index.html' ),
         this.destinationPath( 'index.html' ),
         {
-
-        }
-      );
-
-      // will this work? maybe not...
-      this.fs.copyTpl(
-        this.templatePath( '../shared/sass/' ),
-        this.destinationPath( 'source/styles/' ),
-        {
-
+          siteName: this.siteName
         }
       );
 
@@ -364,17 +377,14 @@ module.exports = yeoman.Base.extend({
         // other WordPress theme files
         this.fs.copyTpl(
           this.templatePath( '../wordpress/theme/_style.css' ),
-          this.destinationPath( this.themeDirectory ),
+          this.destinationPath( this.themeDirectory + '/style.css' ),
           {
-
+            siteName: this.siteName
           }
         );
         this.fs.copy(
           this.templatePath( '../wordpress/theme/404.php' ),
-          this.destinationPath( this.themeDirectory + '/404.php' ),
-          {
-
-          }
+          this.destinationPath( this.themeDirectory + '/404.php' )
         );
         this.copy( '../wordpress/theme/404.php',        this.themeDirectory + '/404.php' );
         this.copy( '../wordpress/theme/archive.php',    this.themeDirectory + '/archive.php' );
