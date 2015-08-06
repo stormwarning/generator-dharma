@@ -1,4 +1,5 @@
 /* jshint node: true */
+/* jshint es5: true */
 'use strict';
 
 // DEPENDENCIES =======================================================
@@ -164,8 +165,7 @@ gulp.task('sprite', function () {
 gulp.task('serve', ['styles'], function () {
   browserSync({
     notify: false,
-    // Customize the BrowserSync console logging prefix
-    logPrefix: '⎋',
+    logPrefix: '☸',
     server: './'
   });
 
