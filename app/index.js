@@ -148,6 +148,10 @@ module.exports = yeoman.Base.extend({
           type: 'list',
           choices: [
             {
+              name: 'Flywheel defaults',
+              value: 'flywheel'
+            },
+            {
               name: 'WordPress as a git submodule',
               value: 'submodule'
             },
