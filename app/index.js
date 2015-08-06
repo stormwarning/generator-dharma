@@ -431,7 +431,7 @@ module.exports = yeoman.Base.extend({
 
       if ( project.isWordPress ) {
 
-        // WordPress config & bootstrap
+        // Copy WordPress config & bootstrap.
         this.template(
           template.wp + '/_index.php',
           'index.php'
@@ -445,13 +445,13 @@ module.exports = yeoman.Base.extend({
           'wp-config.php'
         );
 
-        // WordPress theme function files
+        // Copy WordPress theme function files.
         this.directory(
           template.wptheme + '/includes/',
           this.themeDirectory + '/includes/'
         );
 
-        // Other WordPress theme files
+        // Copy/template WordPress theme files.
         this.fs.copyTpl(
           this.templatePath( template.wptheme + '/_style.css' ),
           this.destinationPath( this.themeDirectory + '/style.css' ),
@@ -504,7 +504,17 @@ module.exports = yeoman.Base.extend({
 
       if ( project.isShopify ) {
 
-        // Shopify theme files
+        // Copy Shopify CLI theme config.
+        this.template(
+          '../shopify/_config.yml',
+          'shopify/.config.yml'
+        );
+
+        // Copy Shopify template files.
+        this.directory( '../shopify/config/',    'shopify/config/' );
+        this.directory( '../shopify/layout/',    'shopify/layout/' );
+        this.directory( '../shopify/snippets/',  'shopify/snippets/' );
+        this.directory( '../shopify/templates/', 'shopify/templates/' );
 
       }
 
