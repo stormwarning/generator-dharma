@@ -12,6 +12,13 @@ var yeoman = require( 'yeoman-generator' );
 var yosay = require( 'yosay' );
 var _ = require( 'lodash' );
 
+var template = {
+  icons:   '../shared/images',
+  sass:    '../shared/sass',
+  wp:      '../wordpress',
+  wptheme: '../wordpress/theme'
+};
+
 var project = {};
 
 module.exports = yeoman.Base.extend({
@@ -313,22 +320,58 @@ module.exports = yeoman.Base.extend({
 
     iconfiles: function() {
 
-      // touch-icons, etc.
-      this.copy( '../shared/images/android-chrome-192.png', 'android-chrome-192.png' );
-      this.copy( '../shared/images/manifest.json',          'manifest.json' );
-      this.copy( '../shared/images/apple-touch-icon-precomposed.png', 'apple-touch-icon-precomposed.png' );
-      this.copy( '../shared/images/apple-touch-icon.png',   'apple-touch-icon.png' );
-      this.copy( '../shared/images/favicon-16.png',         'favicon-16.png' );
-      this.copy( '../shared/images/favicon-32.png',         'favicon-32.png' );
-      this.copy( '../shared/images/favicon-48.png',         'favicon-48.png' );
-      this.copy( '../shared/images/icon-1024.png',          'icon-1024.png' );
-      this.copy( '../shared/images/ms-tile-wide.png',       'ms-tile-wide.png' );
-      this.copy( '../shared/images/ms-tile.png',            'ms-tile.png' );
-      this.copy( '../shared/images/browserconfig.xml',      'browserconfig.xml' );
+      // Touch-icons, etc.
+      this.copy(
+        template.icons + '/android-chrome-192.png',
+        'android-chrome-192.png'
+      );
+      this.copy(
+        template.icons + '/manifest.json',
+        'manifest.json'
+      );
+      this.copy(
+        template.icons + '/apple-touch-icon-precomposed.png',
+        'apple-touch-icon-precomposed.png'
+      );
+      this.copy(
+        template.icons + '/apple-touch-icon.png',
+        'apple-touch-icon.png'
+      );
+      this.copy(
+        template.icons + '/favicon-16.png',
+        'favicon-16.png'
+      );
+      this.copy(
+        template.icons + '/favicon-32.png',
+        'favicon-32.png'
+      );
+      this.copy(
+        template.icons + '/favicon-48.png',
+        'favicon-48.png'
+      );
+      this.copy(
+        template.icons + '/icon-1024.png',
+        'icon-1024.png'
+      );
+      this.copy(
+        template.icons + '/ms-tile-wide.png',
+        'ms-tile-wide.png'
+      );
+      this.copy(
+        template.icons + '/ms-tile.png',
+        'ms-tile.png'
+      );
+      this.copy(
+        template.icons + '/browserconfig.xml',
+        'browserconfig.xml'
+      );
 
       if ( project.isWordPress ) {
 
-        this.copy( '../wordpress/theme/screenshot.png', this.themeDirectory + '/screenshot.png' );
+        this.copy(
+          template.icons + '/screenshot.png',
+          this.themeDirectory + '/screenshot.png'
+        );
 
       }
 
@@ -344,15 +387,33 @@ module.exports = yeoman.Base.extend({
 
     sourcefiles: function() {
 
-      this.template( '../shared/sass/_main.scss', 'source/styles/main.scss' );
-      this.copy( '../shared/sass/mixins.scss', 'source/styles/_mixins.scss' );
-      this.copy( '../shared/sass/variables.scss', 'source/styles/_variables.scss' );
-      this.directory( '../shared/sass/partials/', 'source/styles/partials/' );
+      this.template(
+        template.sass + '/_main.scss',
+        'source/styles/main.scss'
+      );
+      this.copy(
+        template.sass + '/mixins.scss',
+        'source/styles/_mixins.scss'
+      );
+      this.copy(
+        template.sass + '/variables.scss',
+        'source/styles/_variables.scss'
+      );
+      this.directory(
+        template.sass + '/partials/',
+        'source/styles/partials/'
+      );
 
       if ( project.isWordPress ) {
 
-        this.copy( '../shared/sass/editor-style.scss', 'source/styles/editor-style.scss' );
-        this.copy( '../shared/sass/login-style.scss', 'source/styles/login-style.scss' );
+        this.copy(
+          template.sass + '/editor-style.scss',
+          'source/styles/editor-style.scss'
+        );
+        this.copy(
+          template.sass + '/login-style.scss',
+          'source/styles/login-style.scss'
+        );
 
       }
 
@@ -371,35 +432,73 @@ module.exports = yeoman.Base.extend({
       if ( project.isWordPress ) {
 
         // WordPress config & bootstrap
-        this.template( '../wordpress/_index.php',        'index.php' );
-        this.template( '../wordpress/_local-config.php', 'local-config-sample.php' );
-        this.template( '../wordpress/_wp-config.php',    'wp-config.php' );
+        this.template(
+          template.wp + '/_index.php',
+          'index.php'
+        );
+        this.template(
+          template.wp + '/_local-config.php',
+          'local-config-sample.php'
+        );
+        this.template(
+          template.wp + '/_wp-config.php',
+          'wp-config.php'
+        );
 
         // WordPress theme function files
-        this.directory( '../wordpress/theme/includes/',  this.themeDirectory + '/includes/' );
+        this.directory(
+          template.wptheme + '/includes/',
+          this.themeDirectory + '/includes/'
+        );
 
-        // other WordPress theme files
+        // Other WordPress theme files
         this.fs.copyTpl(
-          this.templatePath( '../wordpress/theme/_style.css' ),
+          this.templatePath( template.wptheme + '/_style.css' ),
           this.destinationPath( this.themeDirectory + '/style.css' ),
           {
             siteName: this.siteName
           }
         );
         this.fs.copy(
-          this.templatePath( '../wordpress/theme/404.php' ),
+          this.templatePath( template.wptheme + '/404.php' ),
           this.destinationPath( this.themeDirectory + '/404.php' )
         );
-        this.copy( '../wordpress/theme/404.php',        this.themeDirectory + '/404.php' );
-        this.copy( '../wordpress/theme/archive.php',    this.themeDirectory + '/archive.php' );
-        this.copy( '../wordpress/theme/footer.php',     this.themeDirectory + '/footer.php' );
-        this.copy( '../wordpress/theme/front-page.php', this.themeDirectory + '/front-page.php' );
-        this.copy( '../wordpress/theme/functions.php',  this.themeDirectory + '/functions.php' );
-        this.copy( '../wordpress/theme/header.php',     this.themeDirectory + '/header.php' );
-        this.copy( '../wordpress/theme/index.php',      this.themeDirectory + '/index.php' );
-        this.copy( '../wordpress/theme/page.php',       this.themeDirectory + '/page.php' );
-        this.copy( '../wordpress/theme/search.php',     this.themeDirectory + '/search.php' );
-        this.copy( '../wordpress/theme/single.php',     this.themeDirectory + '/single.php' );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/archive.php' ),
+          this.destinationPath( this.themeDirectory + '/archive.php' )
+        );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/footer.php' ),
+          this.destinationPath( this.themeDirectory + '/footer.php' )
+        );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/front-page.php' ),
+          this.destinationPath( this.themeDirectory + '/front-page.php' )
+        );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/functions.php' ),
+          this.destinationPath( this.themeDirectory + '/functions.php' )
+        );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/header.php' ),
+          this.destinationPath( this.themeDirectory + '/header.php' )
+        );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/index.php' ),
+          this.destinationPath( this.themeDirectory + '/index.php' )
+        );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/page.php' ),
+          this.destinationPath( this.themeDirectory + '/page.php' )
+        );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/search.php' ),
+          this.destinationPath( this.themeDirectory + '/search.php' )
+        );
+        this.fs.copy(
+          this.templatePath( template.wptheme + '/single.php' ),
+          this.destinationPath( this.themeDirectory + '/single.php' )
+        );
 
       }
 
