@@ -4,16 +4,15 @@
 /**
  * Global font improvements
  */
-
 body {
   font-family: $font-body;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 input,
 button {
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
@@ -87,7 +86,7 @@ h1, .alpha {
 
   font-size: $h2-size;
 
-  @include bp(medium) {
+  @include media-query(medium) {
     font-size: $h1-size;
   }
 }
@@ -163,12 +162,12 @@ $open-quote:  \201C !global;
 $close-quote: \201D !global;
 
 blockquote {
-  quotes: "#{$open-quote}" "#{$close-quote}";
   margin: 0;
   margin-bottom: $base-line-height;
   font-family: $font-heading;
   line-height: 1.5;
   text-indent: -0.41em;
+  quotes: "#{$open-quote}" "#{$close-quote}";
 
   > :last-child {
     margin-bottom: 0;
@@ -245,7 +244,8 @@ ul {
 
   > li {
 
-    > ol, ul { margin-bottom: 0; }
+    > ol,
+    > ul { margin-bottom: 0; }
   }
 
   > :last-child {

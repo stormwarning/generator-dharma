@@ -2,28 +2,19 @@
     #VARIABLES
 \*------------------------------------*/
 /**
- * Basic custom style variables.
- */
-$site-width:        960px;
-$base-radius:       5px;
-$sprite-size:       600px 400px;
-
-// Transition settings
-$timing:            ease-in;
-
-
-/**
  * Colours
  */
-$black:             #111;
+$black:             #222;
 $grey-dark:         #666;
-$grey:              #bcc2c9;
-$grey-light:        #e9ebed;
+$grey:              #999;
+$grey-light:        #ddd;
 $white:             #fff;
 
-$color-link:        $white;
+$color-text:        $black;
+$color-link:        $grey-dark;
 $color-shadow:      $black;
 $color-selection:   $grey-light;
+$color-background:  $white;
 
 $color-overhaul:    #71838e;
 $color-facebook:    #3b5998;
@@ -58,6 +49,21 @@ $micro-size:        10px!default;
 
 
 /**
- * Grid settings
+ * Basic custom style variables.
  */
-$layout-gutter:     24px;
+$site-width:        960px;
+$base-radius:       5px;
+$sprite-size:       600px 400px;
+
+// Transition settings
+$timing:            ease-in-out;
+
+// Grid settings
+$layout-gutter:     20px;
+
+// Breakpoints
+$breakpoints: (
+  "medium"          "screen and (min-width: 30em)",
+  "large"           "screen and (min-width: 60em)",
+  "retina"          "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"
+) !default;

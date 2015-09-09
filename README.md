@@ -2,14 +2,16 @@
 
 `generator-dharma` : A [WordPress](http://wordpress.org/) site [Yeoman](http://yeoman.io/) generator for [Overhaul Media](http://overhaulmedia.com/).
 
-> _Dharma_ signifies behaviours that are considered to be in accord with order that makes life and universe possible, and includes duties, rights, laws, conduct, virtues and "right way of living".
+> _Dharma_ signifies behaviours that are considered to be in accord with order that makes life and universe possible, and includes duties, rights, laws, conduct, virtues and “right way of living”.
 
 The Dharma generator builds a base WordPress project following best practices and methods for WordPress and front-end development.
 
 
-[![GitHub Release](https://img.shields.io/github/release/stormwarning/generator-dharma.svg?style=flat)](https://github.com/stormwarning/generator-dharma/releases)
-[![Build Status](https://img.shields.io/travis/stormwarning/generator-dharma.svg?style=flat)](https://travis-ci.org/stormwarning/generator-dharma)
-[![GitHub Issues](https://img.shields.io/github/issues/stormwarning/generator-dharma.svg?style=flat)](https://github.com/stormwarning/generator-dharma/issues)
+[![GitHub Release](https://img.shields.io/github/release/overhaul/generator-dharma.svg?style=flat)](https://github.com/overhaul/generator-dharma/releases)
+[![npm Downloads](https://img.shields.io/npm/dm/generator-dharma.svg?style=flat)](https://www.npmjs.com/package/generator-dharma)
+[![Code Climate](https://img.shields.io/codeclimate/github/overhaul/generator-dharma.svg?style=flat)](https://codeclimate.com/github/overhaul/generator-dharma)
+[![Build Status](https://img.shields.io/travis/overhaul/generator-dharma.svg?style=flat)](https://travis-ci.org/overhaul/generator-dharma)
+[![GitHub Issues](https://img.shields.io/github/issues/overhaul/generator-dharma.svg?style=flat)](https://github.com/overhaul/generator-dharma/issues)
 
 ## How do I get started?
 
@@ -56,7 +58,7 @@ On a Mac? Got Terminal open? Here we go:
     $ npm install -g gulp grunt
     ```
 
-    Gulp (and Grunt) is a task runner. Used during development, these tools can automate a lot of the tedious stuff so we don't need to remember if the CSS was minimised or images were optimised.
+    Gulp (and Grunt) is a task runner. Used during development, these tools can automate a lot of the tedious stuff so we don’t need to remember if the CSS was minimised or images were optimised.
 
 5. Now install `generator-dharma` and run it in a new project folder
 
@@ -69,6 +71,6 @@ On a Mac? Got Terminal open? Here we go:
 
 
 
-## License
+## Credits and collaboration
 
-MIT
+`generator-dharma` is maintained by [Jeff Nelson](https://github.com/stormwarning) at [Overhaul Media](http://overhaulmedia.com/) and is licenced under the MIT licence. We welcome comments, feedback and suggestions. Please feel free to raise an issue or pull request.

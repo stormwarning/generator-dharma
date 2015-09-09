@@ -1,41 +1,48 @@
+/* jshint node: true */
 'use strict';
 
-var util = require('util'),
-    path = require('path'),
-    yeoman = require('yeoman-generator'),
-    chalk = require('chalk'),
-    git = require('simple-git')();
+var util = require('util');
+var path = require('path');
+var yeoman = require('yeoman-generator');
+var chalk = require('chalk');
+var git = require('simple-git')();
 
 
 var DharmaGenerator = yeoman.generators.Base.extend({
-  init: function () {
-    this.pkg = require('../package.json');
 
-    this.on('end', function () {
-      if (!this.options['skip-install']) {
+  init: function() {
+
+    this.pkg = require('../package.json');
+    this.on('end', function() {
+
+      if ( ! this.options['skip-install'] ) {
+
         this.installDependencies();
+
       }
+
     });
+
   },
 
-  askFor: function () {
+  askFor: function() {
+
     var done = this.async();
 
     // have Yeoman greet the user
     this.log(this.yeoman);
-
-    // replace it with a short and sweet description of your generator
     this.log(chalk.magenta('Dharma: a WordPress site generator. ॐ'));
 
     var prompts = [
       {
         name: 'siteName',
-        message: 'What is the name of the site you\'re building?'
+        message: 'What is the name of the site you’re building?',
+        default: 'My Site'
       },
       {
         name: 'themeSlug',
         message: 'What is the folder name?',
-        default: 'some-theme'
+        default: 'my-theme'
       },
       {
         name: 'dbPrefix',
@@ -73,12 +80,6 @@ var DharmaGenerator = yeoman.generators.Base.extend({
         ],
         default: '$_ENV{DATABASE_SERVER}'
       },
-      // {
-      //     name: 'wpLang',
-      //   message: 'Want support for multiple languages?',
-      //     default: ''
-      //
-      // },
       {
         name: 'wpDirectory',
         message: 'What folder should WordPress live in?',
@@ -86,114 +87,244 @@ var DharmaGenerator = yeoman.generators.Base.extend({
       },
     ];
 
-    this.prompt(prompts, function (props) {
+    this.prompt(prompts, function(props) {
+
       this.siteName = props.siteName;
       this.themeSlug = props.themeSlug;
       this.wpDirectory = props.wpDirectory;
+      this.themeDir = 'content/themes/' + this.themeSlug;
       this.dbPrefix = props.dbPrefix;
       this.dbName = props.dbName;
       this.dbUser = props.dbUser;
       this.dbPass = props.dbPass;
       this.dbHost = props.dbHost;
-
       done();
+
     }.bind(this));
+
   },
 
-  app: function () {
+  app: function() {
+
     this.mkdir('content');
     this.mkdir('content/themes');
     // get this folder name from a user prompt
     this.mkdir('content/themes/' + this.themeSlug);
     this.mkdir('content/mu-plugins');
     this.mkdir('shared/content/uploads');
-    this.template('_index.php', 'index.php');
-    this.template('_local-config.php', 'local-config-sample.php');
-    this.template('_wp-config.php', 'wp-config.php');
+    this.template(
+      '_index.php',
+      'index.php');
+    this.template(
+      '_local-config.php',
+      'local-config-sample.php');
+    this.template(
+      '_wp-config.php',
+      'wp-config.php');
+
   },
 
-  projectfiles: function () {
-    this.template('_package.json', 'package.json');
-    this.template('_gulpfile.js', 'gulpfile.js');
-    this.template('_bower.json', 'bower.json');
+  projectfiles: function() {
+
+    this.log(chalk.blue('Creating project & build config files...'));
+
+    this.template(
+      '_package.json',
+      'package.json');
+    this.template(
+      '_gulpfile.js',
+      'gulpfile.js');
+    this.template(
+      '_bower.json',
+      'bower.json');
+
   },
 
-  dotfiles: function () {
-    // dotfiles
-    this.template('_bowerrc', '.bowerrc');
-    this.copy('editorconfig', '.editorconfig');
-    this.copy('jshintrc', '.jshintrc');
-    this.copy('scss-lint.yml', '.scss-lint.yml');
-    this.template('_gitignore', '.gitignore');
-    this.copy('gitattributes', '.gitattributes');
-    this.template('_gitmodules', '.gitmodules');
-    this.copy('htaccess', '.htaccess');
-    this.copy('humans.txt', 'humans.txt');
-    this.copy('robots.txt', 'robots.txt');
+  dotfiles: function() {
+
+    this.template(
+      '_bowerrc',
+      '.bowerrc');
+    this.copy(
+      'editorconfig',
+      '.editorconfig');
+    this.copy(
+      'jshintrc',
+      '.jshintrc');
+    this.copy(
+      'jscsrc',
+      '.jscsrc');
+    this.copy(
+      '_phpcs.xml',
+      'phpcs.xml');
+    this.copy(
+      'scss-lint.yml',
+      '.scss-lint.yml');
+    this.template(
+      '_gitignore',
+      '.gitignore');
+    this.copy(
+      'gitattributes',
+      '.gitattributes');
+    this.template(
+      '_gitmodules',
+      '.gitmodules');
+    this.copy(
+      'htaccess',
+      '.htaccess');
+    this.copy(
+      'humans.txt',
+      'humans.txt');
+    this.copy(
+      'robots.txt',
+      'robots.txt');
+
+    this.log(chalk.blue('...done!'));
+
   },
 
   themefiles: function() {
-    this.template('theme/_style.css', 'content/themes/' + this.themeSlug + 'style.css');
-    this.copy('theme/404.php', 'content/themes/' + this.themeSlug + '404.php');
-    this.copy('theme/archive.php', 'content/themes/' + this.themeSlug + 'archive.php');
-    this.copy('theme/footer.php', 'content/themes/' + this.themeSlug + 'footer.php');
-    this.copy('theme/front-page.php', 'content/themes/' + this.themeSlug + 'front-page.php');
-    this.copy('theme/functions.php', 'content/themes/' + this.themeSlug + 'functions.php');
-    this.copy('theme/header.php', 'content/themes/' + this.themeSlug + 'header.php');
-    this.copy('theme/index.php', 'content/themes/' + this.themeSlug + 'index.php');
-    this.copy('theme/page.php', 'content/themes/' + this.themeSlug + 'page.php');
-    this.copy('theme/search.php', 'content/themes/' + this.themeSlug + 'search.php');
-    this.copy('theme/single.php', 'content/themes/' + this.themeSlug + 'single.php');
-    this.copy('theme/includes/class-tgm-plugin-activation.php', 'content/themes/' + this.themeSlug + 'includes/class-tgm-plugin-activation.php');
-    this.copy('theme/includes/om-configure.php', 'content/themes/' + this.themeSlug + 'includes/om-configure.php');
-    this.copy('theme/includes/om-dashboard.php', 'content/themes/' + this.themeSlug + 'includes/om-dashboard.php');
-    this.copy('theme/includes/om-functions.php', 'content/themes/' + this.themeSlug + 'includes/om-functions.php');
-    this.copy('theme/includes/theme-functions.php', 'content/themes/' + this.themeSlug + 'includes/theme-functions.php');
-    this.copy('theme/includes/theme-require-plugins.php', 'content/themes/' + this.themeSlug + 'includes/theme-require-plugins.php');
+
+    this.log(chalk.blue('Creating WordPress theme & function files...'));
+
+    this.template(
+      'theme/_style.css',
+      this.themeDir + '/style.css');
+    this.copy(
+      'theme/404.php',
+      this.themeDir + '/404.php');
+    this.copy(
+      'theme/archive.php',
+      this.themeDir + '/archive.php');
+    this.copy(
+      'theme/footer.php',
+      this.themeDir + '/footer.php');
+    this.copy(
+      'theme/front-page.php',
+      this.themeDir + '/front-page.php');
+    this.copy(
+      'theme/functions.php',
+      this.themeDir + '/functions.php');
+    this.copy(
+      'theme/header.php',
+      this.themeDir + '/header.php');
+    this.copy(
+      'theme/index.php',
+      this.themeDir + '/index.php');
+    this.copy(
+      'theme/page.php',
+      this.themeDir + '/page.php');
+    this.copy(
+      'theme/search.php',
+      this.themeDir + '/search.php');
+    this.copy(
+      'theme/single.php',
+      this.themeDir + '/single.php');
+    this.directory(
+      'theme/includes/',
+      this.themeDir + '/includes/');
+
+    this.log(chalk.blue('...done!'));
+
   },
 
   stylefiles: function() {
-    this.template('theme/source/styles/_style.scss', 'content/themes/' + this.themeSlug + '/source/styles/style.scss');
-    this.copy('theme/source/styles/variables.scss', 'content/themes/' + this.themeSlug + '/source/styles/_variables.scss');
-    this.copy('theme/source/styles/mixins.scss', 'content/themes/' + this.themeSlug + '/source/styles/_mixins.scss');
-    this.copy('theme/source/styles/partials/_base.global.scss', 'content/themes/' + this.themeSlug + '/source/styles/partials/_base.global.scss');
-    this.copy('theme/source/styles/partials/_base.typography.scss', 'content/themes/' + this.themeSlug + '/source/styles/partials/_base.typography.scss');
+
+    this.log(chalk.blue('Creating initial SASS files...'));
+
+    this.template(
+      'theme/source/styles/_style.scss',
+      this.themeDir + '/source/styles/style.scss');
+    this.copy(
+      'theme/source/styles/editor-style.scss',
+      this.themeDir + '/source/styles/editor-style.scss');
+    this.copy(
+      'theme/source/styles/login-style.scss',
+      this.themeDir + '/source/styles/login-style.scss');
+    this.copy(
+      'theme/source/styles/variables.scss',
+      this.themeDir + '/source/styles/_variables.scss');
+    this.copy(
+      'theme/source/styles/mixins.scss',
+      this.themeDir + '/source/styles/_mixins.scss');
+    this.directory(
+      'theme/source/styles/partials/',
+      this.themeDir + '/source/styles/partials/');
+
+    this.log(chalk.blue('...done!'));
+
   },
 
-  gitsome: function () {
-    var done = this.async(),
-        me = this;
+  imagefiles: function() {
 
-    me.log(chalk.magenta('Initialising Git repo...'));
+    this.log(chalk.blue('Creating site icon images...'));
 
-    git.init(function (err) {
-      if (err) {
+    this.copy('android-chrome-192.png', 'android-chrome-192.png');
+    this.copy('manifest.json', 'manifest.json');
+    this.copy('apple-touch-icon-precomposed.png', 'apple-touch-icon-precomposed.png');
+    this.copy('apple-touch-icon.png', 'apple-touch-icon.png');
+    this.copy('favicon-16.png', 'favicon-16.png');
+    this.copy('favicon-32.png', 'favicon-32.png');
+    this.copy('favicon-48.png', 'favicon-48.png');
+    this.copy('icon-1024.png', 'icon-1024.png');
+    this.copy('ms-tile-wide.png', 'ms-tile-wide.png');
+    this.copy('ms-tile.png', 'ms-tile.png');
+    this.copy('browserconfig.xml', 'browserconfig.xml');
+    this.copy('theme/screenshot.png', this.themeDir + '/screenshot.png');
+
+    this.log(chalk.blue('...done!'));
+
+  },
+
+  gitsome: function() {
+
+    var done = this.async();
+    var me = this;
+
+    me.log(chalk.magenta('Initialising git repo...'));
+
+    git.init(function(err) {
+
+      if ( err ) {
+
         me.log(chalk.red(err));
+
       }
 
       done();
+
     });
 
-    git.submoduleAdd('git://github.com/WordPress/WordPress.git', this._.slugify(this.wpDirectory), function (err) {
-      if (err) {
+    git.submoduleAdd('git://github.com/WordPress/WordPress.git', this._.slugify(this.wpDirectory), function(err) {
+
+      if ( err ) {
+
         me.log(chalk.red(err));
+
       }
 
       git._baseDir = me._.slugify(me.wpDirectory);
-      git.checkoutLatestTag(function (err) {
-        if (err) {
+      git.checkoutLatestTag(function(err) {
+
+        if ( err ) {
+
           me.log(chalk.red(err));
+
         }
 
         done();
+
       });
+
     });
 
     git.add('./*');
     git.commit('Initialised project. ॐ');
 
     this.log(chalk.magenta('...done! Remember to add an origin and push.'));
+
   }
+
 });
 
 module.exports = DharmaGenerator;

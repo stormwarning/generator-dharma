@@ -1,0 +1,28 @@
+/*------------------------------------*\
+    #ADMIN.EDITOR-STYLE
+\*------------------------------------*/
+/**
+ * Include a few base styles.
+ */
+@import "mixins";
+@import "variables";
+@import "partials/base.typography";
+
+
+
+
+/**
+ * Apply styles to TinyMCE.
+ */
+body#tinymce.wp-editor {
+  font-family: $font-body;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $font-heading;
+  }
+}

@@ -9,8 +9,13 @@
 
 ?>
 
-<?php if ( have_posts() ) : ?>
+<main class="main" id="main" role="main">
 
+<?php
+
+  if ( have_posts() ) :
+
+?>
   <header class="page-header">
     <h1 class="page-title">
       <?php
@@ -65,28 +70,65 @@
         endif;
       ?>
     </h1>
+
     <?php
+
       // Show an optional term description.
       $term_description = term_description();
-      if ( ! empty( $term_description ) ) :
+
+      if ( ! empty( $term_description ) ) {
+
         printf( '<div class="taxonomy-description">%s</div>', $term_description );
-      endif;
+
+      }
+
     ?>
   </header>
 
-  <?php // Start the Loop ?>
-  <?php while ( have_posts() ) : the_post(); ?>
+  <?php
 
-    <?php get_template_part( 'content', get_post_format() ); ?>
+    while ( have_posts() ) :
 
-  <?php endwhile; ?>
+      the_post();
 
-  <?php _om_paging_nav(); ?>
+  ?>
+  <article class="excerpt-content" role="article">
+    <?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
-<?php else : ?>
+    <?php the_excerpt(); ?>
+  </article>
+  <?php
 
-  <?php get_template_part( 'content', 'none' ); ?>
+    endwhile; // close the loop.
 
-<?php endif; ?>
+  ?>
 
-<?php get_footer(); ?>
+  <?php
+
+    // put pagination function here
+
+  ?>
+
+<?php
+
+  else :
+
+?>
+
+  <article class="no-results" role="article">
+    <h1 class="entry-title">Sorry, no results found</h1>
+  </article>
+
+<?php
+
+  endif;
+
+?>
+
+</main>
+
+<?php
+
+  get_footer();
+
+?>

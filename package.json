@@ -1,10 +1,10 @@
 {
   "name": "generator-dharma",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "The Dharma generator builds a base WordPress project following best practices and methods for WordPress and front-end development.",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "stormwarning/generator-dharma",
+  "repository": "overhaul/generator-dharma",
   "author": {
     "name": "Jeff",
     "email": "",
@@ -21,7 +21,9 @@
   ],
   "keywords": [
     "yeoman-generator",
-    "wordpress"
+    "wordpress",
+    "boilerplate",
+    "starter files"
   ],
   "dependencies": {
     "yeoman-generator": "~0.16.0",

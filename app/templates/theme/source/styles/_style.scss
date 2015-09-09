@@ -1,11 +1,10 @@
 /**
  * Theme Name:  <%= siteName %>
- * Theme URI:
+ * Theme URI:   http://HOMEPAGE.com/
  * Description:
- * Author:
- * Author URI:
+ * Author:      Overhaul
+ * Author URI:  http://overhaulmedia.com/
  * Version:     0.1.0
- * Tags:
  */
 
 /**
@@ -13,7 +12,7 @@
  */
 @import "mixins";
 @import "variables";
-@import "../vendor/normalize-scss/_normalize";
+@import "../vendor/normalize-scss/normalize";
 
 
 /**
@@ -26,29 +25,37 @@
 /**
  * Objects, abstractions, and constructs
  */
-@import "partials/object.button";
-@import "partials/object.nav";
-@import "partials/object.revealer";
-@import "partials/object.hero";
-@import "partials/object.sprite";
+//@import "partials/object.button";
+@import "partials/object.form";
+//@import "partials/object.nav";
+//@import "partials/object.sprite";
+
+
+/**
+ * Complex components
+ */
+//@import "partials/component.revealer";
+//@import "partials/component.hero";
 
 
 /**
  * Page-specific styles
  */
-@import "partials/layout.front";
-@import "partials/layout.page";
-@import "partials/layout.404";
+//@import "partials/layout.front";
+//@import "partials/layout.page";
+//@import "partials/layout.post";
 
 
 /**
  * WordPress default classes etc.
  */
+@import "partials/trump.wordpress";
 
 
 /**
  * Style trumps; helper and vendor styles
  */
+@import "partials/trump.a11y";
 // @import "partials/trump.modernizr";
 // @import "partials/trump.print";
 // @import "partials/trump.debug";

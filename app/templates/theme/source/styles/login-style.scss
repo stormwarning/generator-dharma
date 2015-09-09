@@ -1,0 +1,43 @@
+/*------------------------------------*\
+    #ADMIN.LOGIN-STYLE
+\*------------------------------------*/
+/**
+ * Include a few base styles.
+ */
+@import "mixins";
+@import "variables";
+@import "partials/object.button";
+
+
+
+
+/**
+ * WordPress login page styles.
+ */
+.login {
+
+  h1 {
+
+    a {
+      width: 84px;
+      height: 84px;
+      background-image: url("../images/admin-logo.png");
+      background-image: none, url("../images/admin-logo.svg");
+    }
+  }
+}
+
+
+
+
+.wp-core-ui {
+
+  .button-primary {
+
+    &:hover,
+    &:focus,
+    &:active {
+
+    }
+  }
+}

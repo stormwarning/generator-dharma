@@ -54,6 +54,9 @@ if ( ! function_exists( 'om_startup' ) ) {
     add_theme_support( 'automatic-feed-links' );
     add_post_type_support( 'page', 'excerpt' );
 
+    // add custom editor styles
+    add_editor_style( get_template_directory_uri() . '/assets/styles/editor-style.css' );
+
     // prevent file modifications
     define( 'DISALLOW_FILE_EDIT', true );
 
@@ -64,6 +67,13 @@ if ( ! function_exists( 'om_startup' ) ) {
 
     // keep Yoast SEO metabox in last place
     add_action( 'wpseo_metabox_prio', 'om_yoast_seo_metabox_priority' );
+
+    // clean up shortcode formatting/output
+    add_filter( 'the_content', 'om_clean_shortcodes' );
+    add_filter( 'the_content', 'om_fix_paragraph_nesting', 99 );
+
+    // disable emoji support
+    add_action( 'init', 'om_disable_emoji' );
 
   }
 
@@ -191,9 +201,7 @@ if ( ! function_exists( 'om_scripts_and_styles' ) ) {
     if ( ! is_admin() ) {
 
       // modernizr (without media query polyfill)
-      wp_register_script( 'om-modernizr', get_template_directory_uri() . '/assets/scripts/modernizr.js', array(), '2.6.2', false );
-
-
+      wp_register_script( 'om-modernizr', get_template_directory_uri() . '/assets/scripts/modernizr.js', array(), '2.7.2', false );
 
       // comment reply script for threaded comments
       if ( get_option( 'thread_comments' ) ) {
@@ -202,22 +210,21 @@ if ( ! function_exists( 'om_scripts_and_styles' ) ) {
 
       }
 
+      // load Google CDN jQuery
+      wp_deregister_script( 'jquery' );
+      wp_register_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js', false, '', true );
+
       // load scripts in the footer
       global $is_IE;
 
       if ( $is_IE ) {
 
-         wp_register_script ( 'html5shiv', "http://html5shiv.googlecode.com/svn/trunk/html5.js" , false, true );
+        wp_register_script( 'html5shiv', 'http://html5shiv.googlecode.com/svn/trunk/html5.js' , false, true );
 
       }
 
       // enqueue styles and scripts
       wp_enqueue_script( 'om-modernizr' );
-      /*
-      I recommend using a plugin to call jQuery
-      using the google cdn. That way it stays cached
-      and your site will load faster.
-      */
       wp_enqueue_script( 'jquery' );
       wp_enqueue_script( 'html5shiv' );
 
@@ -271,7 +278,7 @@ if ( ! function_exists( 'om_cleaner_caption' ) ) {
       'id' => '',
       'align' => 'alignnone',
       'width' => '',
-      'caption' => ''
+      'caption' => '',
     );
 
     // Merge the defaults with user input
@@ -316,7 +323,7 @@ if ( ! function_exists( 'om_image_tag_class' ) ) {
 
   function om_image_tag_class( $class, $id, $align, $size ) {
 
-    $align = 'align' . esc_attr($align);
+    $align = 'align' . esc_attr( $align );
 
     return $align;
 
@@ -334,13 +341,13 @@ if ( ! function_exists( 'om_image_editor' ) ) {
       array(
         '/\s+width="\d+"/i',
         '/\s+height="\d+"/i',
-        '/alt=""/i'
+        '/alt=""/i',
       ),
       array(
         '',
         '',
         '',
-        'alt="' . $title . '"'
+        'alt="' . $title . '"',
       ),
       $html );
 
@@ -385,8 +392,11 @@ if ( ! function_exists( 'om_img_unautop' ) ) {
  */
 function om_dont_update_theme( $r, $url ) {
 
-  if ( 0 !== strpos( $url, 'http://api.wordpress.org/themes/update-check' ) )
+  if ( 0 !== strpos( $url, 'http://api.wordpress.org/themes/update-check' ) ) {
+
     return $r; // Not a theme update request. Bail immediately.
+
+  }
 
   $themes = unserialize( $r['body']['themes'] );
   unset( $themes[ get_option( 'template' ) ] );
@@ -451,6 +461,87 @@ if ( ! function_exists( 'om_yoast_seo_metabox_priority' ) ) {
   function om_yoast_seo_metabox_priority() {
 
     return 'low';
+
+  }
+
+}
+
+
+
+
+/**
+ * Clean up shortcode formatting/output
+ */
+if ( ! function_exists( 'om_clean_shortcodes' ) ) {
+
+  function om_clean_shortcodes() {
+
+    $array = array(
+      '<p>[' => '[',
+      ']</p>' => ']',
+      ']<br />' => ']',
+    );
+    $content = strtr( $content, $array );
+
+    return $content;
+
+  }
+
+}
+
+
+if ( ! function_exists( 'om_fix_paragraph_nesting' ) ) {
+
+  function om_fix_paragraph_nesting() {
+
+    return str_replace( array( '<div></p>', '<p></div>' ), array( '<div>', '</div>' ), $content );
+
+  }
+
+}
+
+
+
+
+/**
+ * Disable emoji support
+ * Won't prevent use of emoji characters, just disables the automatic
+ * inline script/style added to the `<head>`.
+ *
+ * @since 4.2.0
+ */
+if ( ! function_exists( 'om_disable_emoji' ) {
+
+  function om_disable_emoji() {
+
+    remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+    remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+    remove_action( 'wp_print_styles', 'print_emoji_styles' );
+    remove_action( 'admin_print_styles', 'print_emoji_styles' );
+    remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+    remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+    remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+    add_filter( 'tiny_mce_plugins', 'disable_tinymce_emoji' );
+
+  }
+
+}
+
+/**
+ * Filter function used to remove the tinymce emoji plugin.
+ *
+ * @param  array $plugins
+ * @return array Difference betwen the two arrays
+ */
+function disable_tinymce_emoji( $plugins ) {
+
+  if ( is_array( $plugins ) ) {
+
+    return array_diff( $plugins, array( 'wpemoji' ) );
+
+  } else {
+
+    return array();
 
   }
 

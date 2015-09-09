@@ -2,26 +2,6 @@
     #GLOBAL
 \*------------------------------------*/
 /**
- * Set the global `box-sizing` state to `border-box`.
- *
- * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
- * paulirish.com/2012/box-sizing-border-box-ftw
- */
-html {
-  box-sizing: border-box;
-}
-
-* {
-
-  &,
-  &:before,
-  &:after {
-    box-sizing: inherit;
-  }
-}
-
-
-/**
  * High-, page-level styling.
  *
  * 1. Set the default `font-size` and `line-height` for the entire project,
@@ -34,19 +14,55 @@ html {
  * 4. Prevent certain mobile browsers from automatically zooming fonts.
  * 5. Fonts on OSX will look more consistent with other systems that do not
  *    render text using sub-pixel anti-aliasing.
+ * 6. Set the global `box-sizing` state to `border-box`.
  */
 html {
   min-height: 100%; /* [3] */
   overflow-y: scroll; /* [2] */
   font-size: ($base-font-size / 16px) * 1em; /* [1] */
-  -webkit-font-smoothing: antialiased; /* [5] */
   -moz-osx-font-smoothing: grayscale; /* [5] */
+  -webkit-font-smoothing: antialiased; /* [5] */
   line-height: $base-line-height / $base-font-size; /* [1] */
   color: $color-text;
   -webkit-text-size-adjust: 100%; /* [4] */
   -ms-text-size-adjust: 100%; /* [4] */
   background-color: $color-background;
+  box-sizing: border-box; /* [6] */
 }
+
+
+/**
+ * A better `box-sizing` best-practice.
+ *
+ * @link https://css-tricks.com/?p=175473
+ * @link http://paulirish.com/2012/box-sizing-border-box-ftw
+ */
+* {
+
+  &,
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
+}
+
+
+
+
+/**
+ * Sticky footers through flexbox.
+ *
+ * 1. Vertical flex-direction requires a height value to be set.
+ *
+ * @link http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+ */
+body {
+  display: flex;
+  min-height: 100vh; /* [1] */
+  flex-direction: column;
+}
+
+
 
 
 /**
@@ -81,7 +97,7 @@ p > img {
   margin: 0 auto;
 }
 
-// Stop `max-width` from breaking Google Maps images.
+/* Stop `max-width` from breaking Google Maps images. */
 .google-map img { max-width: none; }
 
 
@@ -106,55 +122,68 @@ figure {
   > figcaption {
     font-family: $font-heading;
     line-height: 2.2;
-    border-bottom: 1px dotted rgba($grey-ultradark, 0.4);
+    border-bottom: 1px dotted rgba($grey-dark, 0.4);
 
     > :last-child { margin-bottom: 0; }
   }
 }
 
 
+
+
 /**
- * Layout system
+ * Grid layout system.
  *
- * @link csswizardry.com/csswizardry-grids/
+ * 1. Remove left-most gutter spacing.
+ * 2. Remove whitespace from inline-block elements.
+ *
+ * @link http://csswizardry.com/csswizardry-grids/
  */
 %layout {
   padding: 0;
   margin: 0;
-  margin-left: -$layout-gutter;
+  margin-left: -$layout-gutter; /* [1] */
+  font-size: 0; /* [2] */
   list-style: none;
 }
 
+
 /**
  * 1. Cause columns to stack side-by-side.
- * 2. Space columns apart.
- * 3. Align columns to the tops of each other.
- * 4. Full-width unless told to behave otherwise.
- * 5. Required to combine fluid widths and fixed gutters.
+ * 2. Full-width unless told to behave otherwise.
+ * 3. Space columns apart.
+ * 4. Make sure grid blocks don't inherit font-size from container.
+ * 5. Align columns to the tops of each other.
  */
 %layout-item {
   display: inline-block; /* [1] */
-  width: 100%; /* [4] */
-  padding-left: $layout-gutter; /* [2] */
-  vertical-align: top; /* [3] */
+  width: 100%; /* [2] */
+  padding-left: $layout-gutter; /* [3] */
+  font-size: $base-font-size; /* [4] */
+  vertical-align: top; /* [5] */
 }
+
+
 
 
 /**
  * Micro clearfix.
-
+ *
  * Extend the clearfix class with Sass to avoid the `.cf` class appearing over
  * and over in your markup.
  *
- * @link css-101.org/articles/clearfix/latest-new-clearfix-so-far.php
+ * @link http://css-101.org/articles/clearfix/latest-new-clearfix-so-far.php
  */
 %cf {
+
   &:after {
     display: table;
     clear: both;
     content: "";
   }
 }
+
+
 
 
 /**
@@ -170,6 +199,7 @@ figure {
   transform: translateY(-50%);
   backface-visibility: hidden;
 }
+
 
 %center-container {
   position: absolute;
@@ -201,31 +231,19 @@ figure {
 }
 
 
+
+
 /**
-* Text meant only for screen readers.
-*/
+ * Text meant only for screen readers.
+ *
+ * @link http://h5bp.com/v
+ */
 %visually-hidden {
   position: absolute !important;
   width: 1px;
   height: 1px;
+  margin: -1px;
   overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-
-  &:hover,
-  &:focus,
-  &:active {
-    top: 5px;
-    left: 5px;
-    z-index: 100000; /* Above WP toolbar */
-    display: block;
-    width: auto;
-    height: auto;
-    padding: 15px 23px 14px;
-    clip: auto !important;
-    line-height: normal;
-    color: $color-text;
-    text-decoration: none;
-    background-color: $color-background;
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
-  }
+  clip: rect(0 0 0 0);
+  border: 0;
 }

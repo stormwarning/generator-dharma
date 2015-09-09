@@ -1,0 +1,125 @@
+/*------------------------------------*\
+    #OBJECT.FORM
+\*------------------------------------*/
+/**
+ * Basic form input custom styling.
+ */
+[type="text"],
+[type="email"],
+[type="tel"],
+[type="number"],
+select,
+textarea,
+.text-input {
+  padding: 1.4rem 1rem;
+  line-height: 1.5;
+  background-color: $grey;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &:focus {
+    outline: none; // Make sure to set some kind of focus style!
+  }
+}
+
+
+
+
+/**
+ * Custom cross-browser `select` input display.
+ *
+ * @link http://wftforms.com/
+ */
+.select-input {
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-top: -0.15rem;
+    pointer-events: none;
+    border: 0.35rem solid;
+    border-color: currentColor transparent transparent;
+    content: "";
+  }
+
+  select {
+    padding-right: 2.25rem;
+
+    // Hide dropdown arrow in IE10+.
+    &::-ms-expand {
+      display: none;
+    }
+
+    // Prevent extra outline in Firefox.
+    &:focus:-moz-focusring {
+      color: transprent;
+      text-shadow: 0 0 0 $black;
+    }
+
+    &:active {
+
+    }
+  }
+}
+
+/** Media-query hack to hide dropdown arrow in Firefox. */
+@-moz-document url-prefix() {
+
+  .select-input {
+
+    select {
+      padding-right: 1rem;
+      text-indent: 0.01px;
+      text-overflow: "";
+    }
+
+    // Reset inherited style from `<select>`.
+    option {
+      background-color: $grey;
+    }
+  }
+}
+
+/** Media-query hack to hide dropdown arrow in IE9. */
+@media screen and (min-width:0\0) {
+  .select-input {
+
+    &:before {
+      position: absolute;
+      top: 0;
+      right: 1rem;
+      bottom: 0;
+      z-index: 2;
+      display: block;
+      width: 1.5rem;
+      background-color: $grey;
+      content: "";
+    }
+
+    &:after {
+      z-index: 5;
+    }
+
+    select {
+      z-index: 1;
+      padding: 0.5rem 1.5rem 0.5rem 1rem;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: $black;
+        background-color: $grey;
+      }
+    }
+  }
+}
