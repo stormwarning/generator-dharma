@@ -75,6 +75,45 @@ function om_curl_data( $url ) {
 
 
 /**
+ * Display automatic copyright year with optional range.
+ *
+ * @param $year integer Start year of range
+ */
+function om_copyright_year( $year = 'auto' ) {
+
+  $current_year = date( 'Y' );
+
+  if ( 'auto' == intval( $year ) ) {
+
+    $year = $current_year;
+
+  }
+
+  switch ( intval( $year ) ) {
+
+    case ( intval( $year ) == $current_year ) :
+      echo intval( $year );
+
+      break;
+
+    case ( intval( $year ) < $current_year ) :
+      echo intval( $year ) . '&ndash;' . $current_year;
+
+      break;
+
+    case ( intval( $year ) > $current_year ) :
+      echo $current_year;
+
+      break;
+
+  }
+
+}
+
+
+
+
+/**
  * Breadcrumb navigation
  *
  * Not all pages will have a `the_title` value; these can be defined here.

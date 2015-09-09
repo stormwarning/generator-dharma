@@ -1,0 +1,9 @@
+---
+# THEME GEM USAGE - visit https://github.com/Shopify/shopify_theme
+
+:api_key: <%= shopifyApi %>
+:password: <%= shopifyPassword %>
+:store: <%= shopifyDomain %>.myshopify.com
+:theme_id: <%= shopifyTheme %>
+:ignore_files:
+  # - settings_data.json

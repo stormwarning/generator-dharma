@@ -74,6 +74,6 @@ if ( file_exists( dirname( __FILE__ ) . '/memcached.php' ) )
 
 // BOOTSTRAP WORDPRESS ================================================
 if ( !defined( 'ABSPATH' ) )
-  define( 'ABSPATH', dirname( __FILE__ ) . '/<%= _.slugify(wpDirectory) %>/' );
+  define( 'ABSPATH', dirname( __FILE__ ) . '/<%= wpDirectory %>/' );
 
 require_once( ABSPATH . 'wp-settings.php' );

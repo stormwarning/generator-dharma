@@ -1,4 +1,5 @@
 /* jshint node: true */
+/* jshint es5: true */
 'use strict';
 
 // DEPENDENCIES =======================================================
@@ -13,19 +14,19 @@ var reload = browserSync.reload;
 var theme = 'content/themes/<%= themeSlug %>';
 var source = {
 
-  styles : theme + '/source/styles/**/*.scss',
-  scripts : theme + '/source/scripts/*.js',
-  images : theme + '/source/images/*.{png,jpg,gif}',
-  svgs : theme + '/source/images/*.svg',
-  plugins : theme + '/source/vendor'
+  styles: theme + '/source/styles/**/*.scss',
+  scripts: theme + '/source/scripts/*.js',
+  images: theme + '/source/images/*.{png,jpg,gif}',
+  svgs: theme + '/source/images/*.svg',
+  plugins: theme + '/source/vendor'
 
 };
 var assets = {
 
-  styles : theme + '/assets/styles',
-  scripts : theme + '/assets/scripts',
-  images : theme + '/assets/images',
-  vendor : theme + '/assets/vendor'
+  styles: theme + '/assets/styles',
+  scripts: theme + '/assets/scripts',
+  images: theme + '/assets/images',
+  vendor: theme + '/assets/vendor'
 
 };
 var plugins = [
@@ -164,8 +165,7 @@ gulp.task('sprite', function () {
 gulp.task('serve', ['styles'], function () {
   browserSync({
     notify: false,
-    // Customize the BrowserSync console logging prefix
-    logPrefix: '⎋',
+    logPrefix: '☸',
     server: './'
   });
 

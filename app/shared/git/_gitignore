@@ -27,9 +27,9 @@ node_modules
 source/vendor
 
 # Theme
-/content/themes/<%= _.slugify(themeSlug) %>/assets
-/content/themes/<%= _.slugify(themeSlug) %>/node_modules
-/content/themes/<%= _.slugify(themeSlug) %>/source/vendor
+/content/themes/<%= themeSlug %>/assets
+/content/themes/<%= themeSlug %>/node_modules
+/content/themes/<%= themeSlug %>/source/vendor
 
 
 #

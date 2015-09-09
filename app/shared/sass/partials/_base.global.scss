@@ -93,12 +93,21 @@ img {
   }
 }
 
+/**
+ * Solidify fluid images.
+ *
+ * Prevent `max-width` from breaking Google Maps or styling images with
+ * explicit `width` or `height` attributes.
+ */
+.gm-style img,
+img[width],
+img[height] {
+  max-width: none;
+}
+
 p > img {
   margin: 0 auto;
 }
-
-/* Stop `max-width` from breaking Google Maps images. */
-.google-map img { max-width: none; }
 
 
 figure {
